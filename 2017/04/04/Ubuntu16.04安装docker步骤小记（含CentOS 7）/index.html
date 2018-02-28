@@ -1,0 +1,749 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//cdn.jsdelivr.net/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ubuntu,docker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="磨蹭了一晚上，终于在虚拟机ubuntu上安装好docker了。记录一下安装步骤，免得以后忘了。">
+<meta name="keywords" content="ubuntu,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hello world">
+<meta property="og:url" content="http://yoursite.com/2017/04/04/Ubuntu16.04安装docker步骤小记（含CentOS 7）/index.html">
+<meta property="og:site_name" content="我是陈瑾毅">
+<meta property="og:description" content="磨蹭了一晚上，终于在虚拟机ubuntu上安装好docker了。记录一下安装步骤，免得以后忘了。">
+<meta property="og:updated_time" content="2018-02-28T01:50:39.057Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hello world">
+<meta name="twitter:description" content="磨蹭了一晚上，终于在虚拟机ubuntu上安装好docker了。记录一下安装步骤，免得以后忘了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/04/Ubuntu16.04安装docker步骤小记（含CentOS 7）/"/>
+
+
+
+
+
+  <title> hello world | 我是陈瑾毅 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是陈瑾毅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/04/Ubuntu16.04安装docker步骤小记（含CentOS 7）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈瑾毅">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是陈瑾毅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                hello world
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-04T11:55:44+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>磨蹭了一晚上，终于在虚拟机ubuntu上安装好docker了。<br><br>记录一下安装步骤，免得以后忘了。<br><a id="more"></a></p>
+<h1 id="1、改Ubuntu源"><a href="#1、改Ubuntu源" class="headerlink" title="1、改Ubuntu源"></a>1、改Ubuntu源</h1><p>安装好Ubuntu后，为了保证速度，建议先将源改为国内的（阿里云）的源。</p>
+</blockquote>
+<p>参考文章：<a href="https://www.cnblogs.com/mufire/p/6433757.html" target="_blank" rel="external">ubuntu16.04LTS更换阿里源</a></p>
+<ol>
+<li>打开sources.list</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
+<ol>
+<li>将里面的内容替换为：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># deb cdrom:[Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1)]/ xenial main restricted</div><div class="line">deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-properties</div><div class="line">deb http://archive.canonical.com/ubuntu xenial partner</div><div class="line">deb-src http://archive.canonical.com/ubuntu xenial partner</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse</div></pre></td></tr></table></figure>
+<ol>
+<li>更新：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+<h1 id="2、安装docker-ce"><a href="#2、安装docker-ce" class="headerlink" title="2、安装docker-ce"></a>2、安装docker-ce</h1><p>阿里官网地址源：<a href="http://mirrors.aliyun.com" target="_blank" rel="external">Ali-OSM<br>(Alibaba Open Source Mirror Site)</a></p>
+<p>然后找到列表中的[ <strong><code>docker-ce</code></strong> ],点开右边的 <a href="http://mirrors.aliyun.com/help/docker-ce" target="_blank" rel="external">[ help ]</a>，可以到帮助页面，下面有一个<strong>相关链接</strong><a href="https://yq.aliyun.com/articles/110806" target="_blank" rel="external">https://yq.aliyun.com/articles/110806</a>，点开就是一篇安装指导文章。</p>
+<h3 id="安装帮助"><a href="#安装帮助" class="headerlink" title="安装帮助"></a>安装帮助</h3><p>Ubuntu 14.04 16.04 (使用apt-get进行安装)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># step 1: 安装必要的一些系统工具</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</div><div class="line"># step 2: 安装GPG证书</div><div class="line">curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</div><div class="line"># Step 3: 写入软件源信息</div><div class="line">sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</div><div class="line"># Step 4: 更新并安装 Docker-CE</div><div class="line">sudo apt-get -y update</div><div class="line">sudo apt-get -y install docker-ce</div><div class="line"></div><div class="line"># 安装指定版本的Docker-CE:</div><div class="line"># Step 1: 查找Docker-CE的版本:</div><div class="line"># apt-cache madison docker-ce</div><div class="line">#   docker-ce | 17.03.1~ce-0~ubuntu-xenial | http://mirrors.aliyun.com/docker-ce/linux/ubuntu xenial/stable amd64 Packages</div><div class="line">#   docker-ce | 17.03.0~ce-0~ubuntu-xenial | http://mirrors.aliyun.com/docker-ce/linux/ubuntu xenial/stable amd64 Packages</div><div class="line"># Step 2: 安装指定版本的Docker-CE: (VERSION 例如上面的 17.03.1~ce-0~ubuntu-xenial)</div><div class="line"># sudo apt-get -y install docker-ce=[VERSION]</div></pre></td></tr></table></figure>
+<p>CentOS 7 (使用yum进行安装)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"># step 1: 安装必要的一些系统工具</div><div class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</div><div class="line"># Step 2: 添加软件源信息</div><div class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</div><div class="line"># Step 3: 更新并安装 Docker-CE</div><div class="line">sudo yum makecache fast</div><div class="line">sudo yum -y install docker-ce</div><div class="line"># Step 4: 开启Docker服务</div><div class="line">sudo service docker start</div><div class="line"></div><div class="line"># 注意：</div><div class="line"># 官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，你可以通过以下方式开启。同理可以开启各种测试版本等。</div><div class="line"># vim /etc/yum.repos.d/docker-ce.repo</div><div class="line">#   将 [docker-ce-test] 下方的 enabled=0 修改为 enabled=1</div><div class="line">#</div><div class="line"># 安装指定版本的Docker-CE:</div><div class="line"># Step 1: 查找Docker-CE的版本:</div><div class="line"># yum list docker-ce.x86_64 --showduplicates | sort -r</div><div class="line">#   Loading mirror speeds from cached hostfile</div><div class="line">#   Loaded plugins: branch, fastestmirror, langpacks</div><div class="line">#   docker-ce.x86_64            17.03.1.ce-1.el7.centos            docker-ce-stable</div><div class="line">#   docker-ce.x86_64            17.03.1.ce-1.el7.centos            @docker-ce-stable</div><div class="line">#   docker-ce.x86_64            17.03.0.ce-1.el7.centos            docker-ce-stable</div><div class="line">#   Available Packages</div><div class="line"># Step2 : 安装指定版本的Docker-CE: (VERSION 例如上面的 17.03.0.ce.1-1.el7.centos)</div><div class="line"># sudo yum -y install docker-ce-[VERSION]</div></pre></td></tr></table></figure>
+<p>安装校验</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">root@iZbp12adskpuoxodbkqzjfZ:$ docker version</div><div class="line">Client:</div><div class="line"> Version:      17.03.0-ce</div><div class="line"> API version:  1.26</div><div class="line"> Go version:   go1.7.5</div><div class="line"> Git commit:   3a232c8</div><div class="line"> Built:        Tue Feb 28 07:52:04 2017</div><div class="line"> OS/Arch:      linux/amd64</div><div class="line"></div><div class="line">Server:</div><div class="line"> Version:      17.03.0-ce</div><div class="line"> API version:  1.26 (minimum version 1.12)</div><div class="line"> Go version:   go1.7.5</div><div class="line"> Git commit:   3a232c8</div><div class="line"> Built:        Tue Feb 28 07:52:04 2017</div><div class="line"> OS/Arch:      linux/amd64</div><div class="line"> Experimental: false</div></pre></td></tr></table></figure>
+<p>参考资料我这里就不放了，可以参考前面的指导文章里面的链接。</p>
+<h1 id="3、优化sudo操作"><a href="#3、优化sudo操作" class="headerlink" title="3、优化sudo操作"></a>3、优化sudo操作</h1><p>参考文章：<a href="http://blog.csdn.net/change_on/article/details/76690934" target="_blank" rel="external">ubuntu16.04 server 安装 docker CE</a><br>（步骤2）</p>
+<ol>
+<li><strong>如果您希望在运行docker命令时避免键入sudo，请将您的用户名添加到docker组:</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo usermod -aG docker $&#123;USER&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><strong>为了应用新的组成员身份，您可以退出服务器并返回，或者您可以输入以下内容:</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">su - $&#123;USER&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><strong>您将被提示输入您的用户的密码继续。然后，您可以确认您的用户现在通过输入添加到docker组:</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id -nG</div></pre></td></tr></table></figure>
+<ol>
+<li><strong>如果您需要向docker组添加您未登录的用户，则声明该用户名使用:（下面username请用当前登录用户名替换）</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo usermod -aG docker username</div></pre></td></tr></table></figure>
+<h1 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h1><p>如无意外，使用以下命令，应该是可以正确运行docker的hello-world程序了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run hello-world</div></pre></td></tr></table></figure>
+<h1 id="5、番外（其他Ubuntu小问题）"><a href="#5、番外（其他Ubuntu小问题）" class="headerlink" title="5、番外（其他Ubuntu小问题）"></a>5、番外（其他Ubuntu小问题）</h1><h4 id="5-1、-刚安装好Ubuntu，没中文输入法的解决办法"><a href="#5-1、-刚安装好Ubuntu，没中文输入法的解决办法" class="headerlink" title="5.1、 刚安装好Ubuntu，没中文输入法的解决办法"></a>5.1、 刚安装好Ubuntu，没中文输入法的解决办法</h4><p>参考地址：<a href="http://blog.csdn.net/suxiang198/article/details/52040283" target="_blank" rel="external">Ubuntu16.04安装中文输入法</a></p>
+<p>PS.装完记得一定要重启，要重启，要重启！</p>
+<h4 id="5-2、-刚安装好Ubuntu，各种报错的解决办法"><a href="#5-2、-刚安装好Ubuntu，各种报错的解决办法" class="headerlink" title="5.2、 刚安装好Ubuntu，各种报错的解决办法"></a>5.2、 刚安装好Ubuntu，各种报错的解决办法</h4><p>每次登录Ubuntu系统都会提示系统有一个错误，请求报告错误。屏蔽方法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo rm /var/crash/*</div><div class="line">sudo gedit /etc/default/apport</div></pre></td></tr></table></figure>
+<p>将enabled设置为0 </p>
+<h4 id="5-3、获取Ubuntu的su用户密码"><a href="#5-3、获取Ubuntu的su用户密码" class="headerlink" title="5.3、获取Ubuntu的su用户密码"></a>5.3、获取Ubuntu的su用户密码</h4><p>打开一个新的终端。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo passwd</div></pre></td></tr></table></figure>
+<p>输入你的账号密码，然后重复两次su的新密码。<br>su的密码就被你修改过来了。</p>
+<p>再次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ su</div></pre></td></tr></table></figure>
+<p>即可进入su用户。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/04/hello world/" rel="next" title="hello world">
+                <i class="fa fa-chevron-left"></i> hello world
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="陈瑾毅" />
+          <p class="site-author-name" itemprop="name">陈瑾毅</p>
+           
+              <p class="site-description motion-element" itemprop="description">不要想太多，该干嘛干嘛。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈瑾毅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
