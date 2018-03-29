@@ -98,7 +98,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/02/17/mac安装docker及部署mysql/index.html">
 <meta property="og:site_name" content="我是陈瑾毅">
 <meta property="og:description" content="1、下载docker打开docker官网，现在支持【docker for mac】了，就直接下了。 至于为什么要用 docker for mac ，因为已经是虚拟化结果，能效不比linux版本的docker差了，不像以前需要先vbox一下。">
-<meta property="og:updated_time" content="2018-02-28T02:36:53.005Z">
+<meta property="og:updated_time" content="2018-03-29T09:24:00.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac安装docker及部署mysql">
 <meta name="twitter:description" content="1、下载docker打开docker官网，现在支持【docker for mac】了，就直接下了。 至于为什么要用 docker for mac ，因为已经是虚拟化结果，能效不比linux版本的docker差了，不像以前需要先vbox一下。">
@@ -378,7 +378,7 @@
 <p>我猜应该可以docker pull mysql:5.7.21这种方式指定版本</p>
 </blockquote>
 <h1 id="4、创建容器"><a href="#4、创建容器" class="headerlink" title="4、创建容器"></a>4、创建容器</h1><p>然后虚拟化了一个mysql容器玩玩，虚拟化成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run --name first-mysql -p 3306:3306 -e MYSQL\_ROOT\_PASSWORD=123456 -d mysql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -p 3306:3306 --name d_mysql -v /home/ubuntu/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=ipcamera -d mysql</div></pre></td></tr></table></figure>
 <h1 id="5、连接及测试"><a href="#5、连接及测试" class="headerlink" title="5、连接及测试"></a>5、连接及测试</h1><p>用navicat连接非常简单，就跟平常连接其他机器的mysql一样。</p>
 <h1 id="6、值得注意的点"><a href="#6、值得注意的点" class="headerlink" title="6、值得注意的点"></a>6、值得注意的点</h1><p>运行参数：–name 可以标注容器名称，方便以后区分和删除。</p>
 <p>命令：<code>docker ps -a</code>，加上 <strong>-a</strong> 参数可以列出所有容器（默认只会列出所有在运行的容器）。<br>主要作用是在docker停止或者非法退出（停电等）情况下，重启启动容器而不丢失记录。</p>
