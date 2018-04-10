@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//cdn.jsdelivr.net/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql,nodejs,javascript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="0、概述该bug由于比较隐秘，在一个历史的工具类库db.js中，有一个query函数，里面一个提前release了连接的操作导致所有请求都会去连接池取到同一个连接。另外一个bug就是报错后只emit，但是mysql包并未配合做release操作。 1、现象某保险公司的查勘记录仪系统，客户反馈无法登录，经过排查后，发现产生该问题的原因，主要是在后端管理系统中有人查看报表的时候，就会导致前端卡顿，需要">
+<meta name="keywords" content="mysql,nodejs,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="db.js中两个历史遗留bug的发现和解决过程">
+<meta property="og:url" content="http://yoursite.com/2018/04/10/db-js中两个历史遗留bug的发现和解决过程/index.html">
+<meta property="og:site_name" content="我是陈瑾毅">
+<meta property="og:description" content="0、概述该bug由于比较隐秘，在一个历史的工具类库db.js中，有一个query函数，里面一个提前release了连接的操作导致所有请求都会去连接池取到同一个连接。另外一个bug就是报错后只emit，但是mysql包并未配合做release操作。 1、现象某保险公司的查勘记录仪系统，客户反馈无法登录，经过排查后，发现产生该问题的原因，主要是在后端管理系统中有人查看报表的时候，就会导致前端卡顿，需要">
+<meta property="og:updated_time" content="2018-04-10T06:39:45.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="db.js中两个历史遗留bug的发现和解决过程">
+<meta name="twitter:description" content="0、概述该bug由于比较隐秘，在一个历史的工具类库db.js中，有一个query函数，里面一个提前release了连接的操作导致所有请求都会去连接池取到同一个连接。另外一个bug就是报错后只emit，但是mysql包并未配合做release操作。 1、现象某保险公司的查勘记录仪系统，客户反馈无法登录，经过排查后，发现产生该问题的原因，主要是在后端管理系统中有人查看报表的时候，就会导致前端卡顿，需要">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/10/db-js中两个历史遗留bug的发现和解决过程/"/>
+
+
+
+
+
+  <title> db.js中两个历史遗留bug的发现和解决过程 | 我是陈瑾毅 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是陈瑾毅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/10/db-js中两个历史遗留bug的发现和解决过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈瑾毅">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是陈瑾毅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                db.js中两个历史遗留bug的发现和解决过程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T14:18:04+08:00">
+                2018-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="0、概述"><a href="#0、概述" class="headerlink" title="0、概述"></a>0、概述</h1><p>该bug由于比较隐秘，在一个历史的工具类库db.js中，有一个query函数，里面一个提前release了连接的操作导致所有请求都会去连接池取到同一个连接。另外一个bug就是报错后只emit，但是mysql包并未配合做release操作。</p>
+<h1 id="1、现象"><a href="#1、现象" class="headerlink" title="1、现象"></a>1、现象</h1><p>某保险公司的查勘记录仪系统，客户反馈无法登录，经过排查后，发现产生该问题的原因，主要是在后端管理系统中有人查看报表的时候，就会导致前端卡顿，需要等待。</p>
+<p>某保险公司的远程定损系统有同样类似现象，有定损员报无法登录的情况。</p>
+<a id="more"></a>
+<h1 id="2、原因分析"><a href="#2、原因分析" class="headerlink" title="2、原因分析"></a>2、原因分析</h1><p>一开始怀疑是cpu满载导致的原因，就尝试了将系统启用不同的多个线程，虽然情况有所缓解，但是问题并未能解决。特别是最近这段时间，人保遇到检查，对系统的使用强度一下子提高了好几倍。好几个组长基本都在全天抽查视频，对报表使用强度非常高，分多线程的方法一下子就无效了。那么痛定思痛，又开始寻找新的解决方案。</p>
+<p>这个时候，我们将眼光放到了系统的资源管理器，通过观测，可以得出，卡顿时，CPU占用并未达到瓶颈，同时，磁盘IO虽然也高，但也不至于明显的瓶颈。那么，通过排除法得出，卡顿最主要原因那就很可能出现在mysql，也就是查询数据库部分。</p>
+<p>尝试调整了一下代码中的sql查询语句，大部分查询都在navicat中做到了1秒内得到反馈，除了几个大的表的连表查询需要10秒以上，基本都能达到5秒～8秒内。但是同样的sql语句挪到了node.js中却还是没有明显的原因，那到底是为啥呢？</p>
+<p>这时，刘刚给了我一个关键提醒，我们开始关注了一下范博在我们系统搭建之初就留下来的一个叫db.js的工具类库，这个库主要暴露出一个叫query的接口，作用是读取settings.js中的mysql字段的配置，连接数据库，并根据传入的sql语句进行查询。在再次仔细审查该js文件的代码后，发现了两个问题。</p>
+<h1 id="3、源码排查"><a href="#3、源码排查" class="headerlink" title="3、源码排查"></a>3、源码排查</h1><p>旧db.js源代码：（代码1）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">// Generated by CoffeeScript 1.6.3</div><div class="line">/*</div><div class="line">    mysql数据库连接类</div><div class="line">    class Db</div><div class="line">*/</div><div class="line"></div><div class="line"></div><div class="line">(function() &#123;</div><div class="line">  var Db, config, mysql, pool,</div><div class="line">    __slice = [].slice;</div><div class="line"></div><div class="line">  mysql = require(&apos;mysql&apos;);</div><div class="line"></div><div class="line">  config = require(&apos;../../settings&apos;);</div><div class="line"></div><div class="line">  pool = mysql.createPool(config.mysql);</div><div class="line"></div><div class="line">  Db = (function() &#123;</div><div class="line">    function Db() &#123;&#125;</div><div class="line"></div><div class="line">    Db.query = function() &#123;</div><div class="line">      var callback, str, _i;</div><div class="line">      str = 2 &lt;= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), callback = arguments[_i++];</div><div class="line">      if (process.env.debug) &#123;</div><div class="line">        console.log(str.join());</div><div class="line">      &#125;</div><div class="line">      return pool.getConnection(function(err, connection) &#123;</div><div class="line">        if (err) &#123;</div><div class="line">          return callback(err);</div><div class="line">        &#125;</div><div class="line">        connection.query.apply(connection, __slice.call(str).concat([function(err, results, fields) &#123;</div><div class="line">          if (err) &#123;</div><div class="line">            connection.emit(&apos;error&apos;);</div><div class="line">          &#125;</div><div class="line">          return callback(err, results, fields);</div><div class="line">        &#125;]));</div><div class="line">        return connection.release();</div><div class="line">      &#125;);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return Db;</div><div class="line"></div><div class="line">  &#125;)();</div><div class="line"></div><div class="line">  module.exports = Db;</div><div class="line"></div><div class="line">&#125;).call(this);</div><div class="line"></div><div class="line">/*</div><div class="line">//@ sourceMappingURL=db.map</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h2 id="3-1、错误"><a href="#3-1、错误" class="headerlink" title="3.1、错误"></a>3.1、错误</h2><h3 id="3-1-1、连接未释放错误"><a href="#3-1-1、连接未释放错误" class="headerlink" title="3.1.1、连接未释放错误"></a>3.1.1、连接未释放错误</h3><p>第32行代码中，if ( err ) 之后，做了一个emit到’error’的操作。但经过代码测试，该emit操作后，并未正确release()，没将使用中的连接释放。导致的后果就是，每次执行报错的代码，就会使得该次调用从连接池中取回的连接被丢入error中，最真连接池的连接全部被占用，系统报错too many connections ，最终不得不重启node.js的服务，手动释放这些错误的连接。在一些使用频度不高，错误率较低的系统中，该bug非常隐秘，因为mysql自身服务也有一个占用超过8小时的连接会强行关闭的机制。</p>
+<h3 id="3-1-2、提前释放连接错误"><a href="#3-1-2、提前释放连接错误" class="headerlink" title="3.1.2、提前释放连接错误"></a>3.1.2、提前释放连接错误</h3><p>另外一个更加致命的bug，在代码中的第37行，return connection.release();。我们揣测，当时写这代码的本意，是为了配合上面的代码，在调用后，无论是否正确结束，都强行做一次release()操作，用于释放该次连接。（或者说，是由于CoffeeScript的空格数错误，导致该代码并未包含到上一层内。）</p>
+<p>该错误代码导致了一个非常重要的问题，node.js是一个通过回调来进行的服务。该代码直接就导致：连接池中的第一个连接，被取用，刚开始进行数据库查询，就马上塞回了连接池中，后续过来的操作，从连接池中请求连接，结果连接池还是将该连接分配给后续过来的操作，造成后续操作必须等待前一个连接的操作（查询数据库）完成后，才能进行相关操作。</p>
+<h2 id="3-2、db-js源码解读"><a href="#3-2、db-js源码解读" class="headerlink" title="3.2、db.js源码解读"></a>3.2、db.js源码解读</h2><p>在3.1.1的错误中，解决err后没正确release释放连接的解决方案比较无脑，就是简单粗暴的去掉err判断，不再emit错误，强行release释放连接。对connection.query.apply函数内部修改，修改后的代码如第13~15行所示。</p>
+<p>api/libs/db.js：（代码2）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// ... 前面相关代码不做展示</div><div class="line">   Db.query = function() &#123;</div><div class="line">     var callback, str, _i;</div><div class="line">     str = 2 &lt;= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), callback = arguments[_i++];</div><div class="line">     if (process.env.debug) &#123;</div><div class="line">       console.log(str.join());</div><div class="line">     &#125;</div><div class="line">     return pool.getConnection(function(err, connection) &#123;</div><div class="line">       if (err) &#123;</div><div class="line">         return callback(err);</div><div class="line">       &#125;</div><div class="line">       connection.query.apply(connection, __slice.call(str).concat([function(err, results, fields) &#123;</div><div class="line">           connection.release();</div><div class="line">         return callback(err, results, fields);</div><div class="line">       &#125;]));</div><div class="line">       return connection.release();</div><div class="line">     &#125;);</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">//... ;后段相关代码不做展示</div></pre></td></tr></table></figure>
+<h2 id="3-3、mysql包中的源码解读"><a href="#3-3、mysql包中的源码解读" class="headerlink" title="3.3、mysql包中的源码解读"></a>3.3、mysql包中的源码解读</h2><p>在做了上述改动后，解决了未正确释放的错误，但是，后续调试中，还是会出现卡顿，然后就发现了问题3.1.2，都在取用同一个连接。由于初期并不了解mysql包里的连接池的相关逻辑，无论是翻了github上的说明，还是百度别人的描述，都没提及该错误。后来没办法，只好自己去翻一下mysql包中的Pool.js模块，查看自带的getConnection函数到底做了什么操作。部分相关代码如下：<br>mysql/lib/Pool.js[ getCpnection ]：（代码3）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">	Pool.prototype.getConnection = function (cb) &#123;</div><div class="line"></div><div class="line">  if (this._closed) &#123;</div><div class="line">    var err = new Error(&apos;Pool is closed.&apos;);</div><div class="line">    err.code = &apos;POOL_CLOSED&apos;;</div><div class="line">    process.nextTick(function () &#123;</div><div class="line">      cb(err);</div><div class="line">    &#125;);</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  var connection;</div><div class="line">  var pool = this;</div><div class="line"></div><div class="line">  if (this._freeConnections.length &gt; 0) &#123;</div><div class="line">    connection = this._freeConnections.shift();</div><div class="line">    this.acquireConnection(connection, cb);</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (this.config.connectionLimit === 0 || this._allConnections.length &lt; this.config.connectionLimit) &#123;</div><div class="line">    connection = new PoolConnection(this, &#123; config: this.config.newConnectionConfig() &#125;);</div><div class="line"></div><div class="line">    this._acquiringConnections.push(connection);</div><div class="line">    this._allConnections.push(connection);</div><div class="line"></div><div class="line">    connection.connect(&#123;timeout: this.config.acquireTimeout&#125;, function onConnect(err) &#123;</div><div class="line">      spliceConnection(pool._acquiringConnections, connection);</div><div class="line"></div><div class="line">      if (pool._closed) &#123;</div><div class="line">        err = new Error(&apos;Pool is closed.&apos;);</div><div class="line">        err.code = &apos;POOL_CLOSED&apos;;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      if (err) &#123;</div><div class="line">        pool._purgeConnection(connection);</div><div class="line">        cb(err);</div><div class="line">        return;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      pool.emit(&apos;connection&apos;, connection);</div><div class="line">      pool.emit(&apos;acquire&apos;, connection);</div><div class="line">      cb(null, connection);</div><div class="line">    &#125;);</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (!this.config.waitForConnections) &#123;</div><div class="line">    process.nextTick(function()&#123;</div><div class="line">      var err = new Error(&apos;No connections available.&apos;);</div><div class="line">      err.code = &apos;POOL_CONNLIMIT&apos;;</div><div class="line">      cb(err);</div><div class="line">    &#125;);</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  this._enqueueCallback(cb);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>从源代码中分析可看出，代码15~19行中，主要作用是判断数组<code>_freeConnections</code>中是否有可用连接，如果有，则取用并返回退出，如没有，则进行到21~46行，判断是否已经超过预设连接池连接数上限。如果没超过上限，则新建一个连接并记录取用，如果超上限则直接再往下走到48~55行代码，等待一个可用连接并取用。</p>
+<p>接着，又对PoolConnection.js模块进行了一番分析，主要是针对release函数。根据代码发现，调用的还是Pool.js中的releaseConnection函数。</p>
+<p>mysql/lib/Pool.js[ releaseConnection ]：（代码4）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">	Pool.prototype.releaseConnection = function releaseConnection(connection) &#123;</div><div class="line"></div><div class="line">  if (this._acquiringConnections.indexOf(connection) !== -1) &#123;</div><div class="line">    // connection is being acquired</div><div class="line">    return;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (connection._pool) &#123;</div><div class="line">    if (connection._pool !== this) &#123;</div><div class="line">      throw new Error(&apos;Connection released to wrong pool&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (this._freeConnections.indexOf(connection) !== -1) &#123;</div><div class="line">      // connection already in free connection pool</div><div class="line">      // this won&apos;t catch all double-release cases</div><div class="line">      throw new Error(&apos;Connection already released&apos;);</div><div class="line">    &#125; else &#123;</div><div class="line">      // add connection to end of free queue</div><div class="line">      this._freeConnections.push(connection);</div><div class="line">      this.emit(&apos;release&apos;, connection);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (this._closed) &#123;</div><div class="line">    // empty the connection queue</div><div class="line">    this._connectionQueue.splice(0).forEach(function (cb) &#123;</div><div class="line">      var err = new Error(&apos;Pool is closed.&apos;);</div><div class="line">      err.code = &apos;POOL_CLOSED&apos;;</div><div class="line">      process.nextTick(function () &#123;</div><div class="line">        cb(err);</div><div class="line">      &#125;);</div><div class="line">    &#125;);</div><div class="line">  &#125; else if (this._connectionQueue.length) &#123;</div><div class="line">    // get connection with next waiting callback</div><div class="line">    this.getConnection(this._connectionQueue.shift());</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Pool.prototype.end = function (cb) &#123;</div><div class="line">  this._closed = true;</div><div class="line"></div><div class="line">  if (typeof cb !== &apos;function&apos;) &#123;</div><div class="line">    cb = function (err) &#123;</div><div class="line">      if (err) throw err;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  var calledBack   = false;</div><div class="line">  var waitingClose = 0;</div><div class="line"></div><div class="line">  function onEnd(err) &#123;</div><div class="line">    if (!calledBack &amp;&amp; (err || --waitingClose &lt;= 0)) &#123;</div><div class="line">      calledBack = true;</div><div class="line">      cb(err);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  while (this._allConnections.length !== 0) &#123;</div><div class="line">    waitingClose++;</div><div class="line">    this._purgeConnection(this._allConnections[0], onEnd);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (waitingClose === 0) &#123;</div><div class="line">    process.nextTick(onEnd);</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>然后问题原因就比较明显了，主要是db.js（代码2）中，第17行代码return connection.release();并未等待数据库操作完成，就进行了释放。每次释放，根据Pool.js（代码4）中描述所示，第19行<br> this._freeConnections.push(connection); 会立刻将该连接丢回连接池<code>_freeConnections</code>中，导致下一个请求还是会取到该个连接，最终导致整个系统都只用同一个连接。造成问题就是前一个查询没查完，后面的请求来了马上拿起连接，发起一个请求-排队，然后放下，再后一个拿起-请求-排队，如此往复，排队等查询的请求越来越多，导致登录的请求无法响应或要等待非常长的时间。</p>
+<h1 id="4、解决方案"><a href="#4、解决方案" class="headerlink" title="4、解决方案"></a>4、解决方案</h1><p>经过判断得出问题后，解决方案就水到渠成了，只要在上一个查询没完成之前，不释放该连接，那么下一个过来的请求就会在连接池[ _freeConnections ]中拿不到连接，会让Pool创建一个新的连接给新的请求使用，只要Pool设置得足够大（mysql工具库默认10个，我们设置为120个，因为mysql本身默认安装时是151个连接，留一点给navicat等其他方式使用。），那么不再会有出现没连接查询数据库而需要排队的情况。修正后的代码如下。</p>
+<p>api/libs/db.js：（代码5）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">(function() &#123;</div><div class="line">  var Db, config, mysql, pool,</div><div class="line">    __slice = [].slice;</div><div class="line"></div><div class="line">  mysql = require(&apos;mysql&apos;);</div><div class="line"></div><div class="line">  config = require(&apos;../../settings&apos;);</div><div class="line"></div><div class="line">  pool = mysql.createPool(config.mysql);</div><div class="line"></div><div class="line">  Db = (function() &#123;</div><div class="line">    function Db() &#123;&#125;</div><div class="line"></div><div class="line">    Db.query = function() &#123;</div><div class="line">      var callback, str, _i;</div><div class="line">      str = 2 &lt;= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), callback = arguments[_i++];</div><div class="line">      if (process.env.debug) &#123;</div><div class="line">        console.log(str.join());</div><div class="line">      &#125;</div><div class="line">      return pool.getConnection(function(err, connection) &#123;</div><div class="line">        if (err) &#123;</div><div class="line">          return callback(err);</div><div class="line">        &#125;</div><div class="line">        connection.query.apply(connection, __slice.call(str).concat([function(err, results, fields) &#123;</div><div class="line">          connection.release();</div><div class="line">          return callback(err, results, fields);</div><div class="line">        &#125;]));</div><div class="line">      &#125;);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return Db;</div><div class="line"></div><div class="line">  &#125;)();</div><div class="line"></div><div class="line">  module.exports = Db;</div><div class="line"></div><div class="line">&#125;).call(this);</div></pre></td></tr></table></figure>
+<p>保留回调中的release操作，移除马上释放的操作return connection.release();，这样就保证了必须在回调中才释放连接，初始连接池大小也达到了120个。就算个别报错导致的连接被卡，也会在8小时后被mysql强行释放，保证了系统的稳定运作。</p>
+<h1 id="5、实施步骤"><a href="#5、实施步骤" class="headerlink" title="5、实施步骤"></a>5、实施步骤</h1><p>settings.js中，mysql对象新增属性：<code>connectionLimit:120</code>：（代码6）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">(function () &#123;</div><div class="line">    module.exports = &#123;</div><div class="line">        cookie_secret: &apos;secret_meteoric&apos;,</div><div class="line">        serverPort: ***,</div><div class="line">        mysql: &#123;</div><div class="line">            database: &apos;***&apos;,</div><div class="line">            host: &apos;127.0.0.1&apos;,</div><div class="line">            user: &apos;***&apos;,</div><div class="line">            password: &apos;***&apos;,</div><div class="line">            port: 3306,</div><div class="line">            connectionLimit:120,</div><div class="line">            multipleStatements: true</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;).call(this);</div></pre></td></tr></table></figure>
+<p>配合新的db.js文件（代码5），即可达到修改前面两个bug的效果。将修改后的文件直接覆盖libs/db.js即可。</p>
+<h1 id="6、补充"><a href="#6、补充" class="headerlink" title="6、补充"></a>6、补充</h1><p>我们有些系统在历史代码中，还会用到mysqlConn.js文件，其实里面代码跟db.js是一样的，只是历史原因命名有所区别，查询用函数名safeQueryData。代码更新如下。实施方案跟5一样，覆盖即可。</p>
+<p>libs/mysqlConn.js：（代码7）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">(function() &#123;</div><div class="line">  var Db, config, mysql, pool,</div><div class="line">    __slice = [].slice;</div><div class="line"></div><div class="line">  mysql = require(&apos;mysql&apos;);</div><div class="line"></div><div class="line">  config = require(&apos;../../settings&apos;);</div><div class="line"></div><div class="line">  pool = mysql.createPool(config.mysql);</div><div class="line"></div><div class="line">  Db = (function() &#123;</div><div class="line">    function Db() &#123;&#125;</div><div class="line"></div><div class="line">    Db.safeQueryData = function() &#123;</div><div class="line">      var callback, str, _i;</div><div class="line">      str = 2 &lt;= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), callback = arguments[_i++];</div><div class="line">      if (process.env.debug) &#123;</div><div class="line">        console.log(str.join());</div><div class="line">      &#125;</div><div class="line">      return pool.getConnection(function(err, connection) &#123;</div><div class="line">        if (err) &#123;</div><div class="line">          return callback(err);</div><div class="line">        &#125;</div><div class="line">        connection.query.apply(connection, __slice.call(str).concat([function(err, results, fields) &#123;</div><div class="line">          connection.release();</div><div class="line">          return callback(err, results, fields);</div><div class="line">        &#125;]));</div><div class="line">      &#125;);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    return Db;</div><div class="line"></div><div class="line">  &#125;)();</div><div class="line"></div><div class="line">  module.exports = Db;</div><div class="line"></div><div class="line">&#125;).call(this);</div></pre></td></tr></table></figure>
+<hr>
+<p>结束的分界线，感谢你阅读完全文。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/19/Ubuntu16.04安装docker步骤小记（含CentOS 7）/" rel="prev" title="Ubuntu16.04安装docker步骤小记（含CentOS 7）">
+                Ubuntu16.04安装docker步骤小记（含CentOS 7） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="陈瑾毅" />
+          <p class="site-author-name" itemprop="name">陈瑾毅</p>
+           
+              <p class="site-description motion-element" itemprop="description">不要想太多，该干嘛干嘛。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈瑾毅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
