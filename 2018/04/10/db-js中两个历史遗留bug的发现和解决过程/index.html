@@ -75,7 +75,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql,nodejs,javascript," />
+  <meta name="keywords" content="nodejs,mysql,javascript," />
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="0、概述该bug由于比较隐秘，在一个历史的工具类库db.js中，有一个query函数，里面一个提前release了连接的操作导致所有请求都会去连接池取到同一个连接。另外一个bug就是报错后只emit，但是mysql包并未配合做release操作。 1、现象某保险公司的查勘记录仪系统，客户反馈无法登录，经过排查后，发现产生该问题的原因，主要是在后端管理系统中有人查看报表的时候，就会导致前端卡顿，需要">
-<meta name="keywords" content="mysql,nodejs,javascript">
+<meta name="keywords" content="nodejs,mysql,javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="db.js中两个历史遗留bug的发现和解决过程">
 <meta property="og:url" content="http://yoursite.com/2018/04/10/db-js中两个历史遗留bug的发现和解决过程/index.html">
@@ -426,9 +426,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
-          
             <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
           
             <a href="/tags/javascript/" rel="tag"># javascript</a>
           
@@ -442,6 +442,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/21/【从零到一】搭建一个完整项目的解决方案/" rel="next" title="（施工中）【从零到一】搭建一个完整项目的解决方案">
+                <i class="fa fa-chevron-left"></i> （施工中）【从零到一】搭建一个完整项目的解决方案
+              </a>
             
           </div>
 
@@ -498,8 +502,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -514,7 +527,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -532,7 +545,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -557,6 +570,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0、概述"><span class="nav-text">0、概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1、现象"><span class="nav-text">1、现象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、原因分析"><span class="nav-text">2、原因分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、源码排查"><span class="nav-text">3、源码排查</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1、错误"><span class="nav-text">3.1、错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1、连接未释放错误"><span class="nav-text">3.1.1、连接未释放错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2、提前释放连接错误"><span class="nav-text">3.1.2、提前释放连接错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2、db-js源码解读"><span class="nav-text">3.2、db.js源码解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3、mysql包中的源码解读"><span class="nav-text">3.3、mysql包中的源码解读</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、解决方案"><span class="nav-text">4、解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、实施步骤"><span class="nav-text">5、实施步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、补充"><span class="nav-text">6、补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

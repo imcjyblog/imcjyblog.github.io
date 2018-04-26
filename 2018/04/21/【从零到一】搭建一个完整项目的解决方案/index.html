@@ -1,0 +1,902 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//cdn.jsdelivr.net/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ubuntu,docker,nodejs,mysql,javascript,域名,网站," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="文档施工中…">
+<meta name="keywords" content="ubuntu,docker,nodejs,mysql,javascript,域名,网站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（施工中）【从零到一】搭建一个完整项目的解决方案">
+<meta property="og:url" content="http://yoursite.com/2018/04/21/【从零到一】搭建一个完整项目的解决方案/index.html">
+<meta property="og:site_name" content="我是陈瑾毅">
+<meta property="og:description" content="文档施工中…">
+<meta property="og:updated_time" content="2018-04-26T09:09:56.058Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（施工中）【从零到一】搭建一个完整项目的解决方案">
+<meta name="twitter:description" content="文档施工中…">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/21/【从零到一】搭建一个完整项目的解决方案/"/>
+
+
+
+
+
+  <title> （施工中）【从零到一】搭建一个完整项目的解决方案 | 我是陈瑾毅 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是陈瑾毅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/【从零到一】搭建一个完整项目的解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈瑾毅">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是陈瑾毅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                （施工中）【从零到一】搭建一个完整项目的解决方案
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T00:12:22+08:00">
+                2018-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="文档施工中…"><a href="#文档施工中…" class="headerlink" title="文档施工中…"></a>文档施工中…</h1><a id="more"></a>
+<h1 id="0、概述"><a href="#0、概述" class="headerlink" title="0、概述"></a>0、概述</h1><p>事情源于<strong>陈新磊</strong>同学的一次提问。</p>
+<p>4.19那天下班前，陈新磊过来找我，咨询了一下关于docker部署中的问题，同时也问了我一下关于SSL证书（HTTPS）的注册和部署相关的问题。我就简单的给他解释和演示了一下工作流程。</p>
+<p>但是后来仔细一想，发现这个事情倒是非常适合拿出来跟大家做技术分享的。虽然之前的每一个步骤都零零星星的跟大家解释过，包括Ubuntu、Docker、还有注册域名、云主机等。却没有把所有细节都连在一起串讲一次。</p>
+<p>那么这次，就趁着这个机会，把这整个项目流串在一起，从零到一，给大家介绍一下，搭建一个完整项目的解决方案。</p>
+<h1 id="1、目标"><a href="#1、目标" class="headerlink" title="1、目标"></a>1、目标</h1><p>我们这次需要达到的目标其实也很简单，注册一个自己的域名，购买一个云主机，申请免费1年的SSL证书，并且在云主机中运行docker，配置属于自己的开发/测试环境，搭建一个属于自己的网站。在最后的番外篇中，会简单描述一下如何搭建一个完全免费的个人博客，并且绑定属于自己的域名。</p>
+<h1 id="2、流程"><a href="#2、流程" class="headerlink" title="2、流程"></a>2、流程</h1><h2 id="2-1、步骤"><a href="#2-1、步骤" class="headerlink" title="2.1、步骤"></a>2.1、步骤</h2><ul>
+<li>注册域名 + 实名认证</li>
+<li>注册云主机 + 备案</li>
+<li>为域名申请免费SSL证书</li>
+<li>[非必选]优化Ubuntu基础设计</li>
+<li>安装Nginx</li>
+<li>安装Docker</li>
+<li>安装Node.js （or Docker安装Node.js) (or 打包整合Node.js绿色包）</li>
+<li>Docker 安装 MySQL</li>
+<li>Docker 安装 Docker Registry</li>
+<li>配置SSL证书</li>
+<li>Docker 打包node.js项目image，并上传Docker Registry</li>
+<li>Docker 下载自建image并运行</li>
+</ul>
+<h2 id="2-2、注册域名-实名认证"><a href="#2-2、注册域名-实名认证" class="headerlink" title="2.2、注册域名 + 实名认证"></a>2.2、注册域名 + 实名认证</h2><p>因为习惯原因，我的域名是在「<a href="https://www.aliyun.com" target="_blank" rel="external">阿里云</a>」注册的。因为阿里云最早提供的手机APP，可以直接在手机上对云服务的各种管理非常方便。注册过程可以参考阿里的「<a href="https://help.aliyun.com/document_detail/54068.html" target="_blank" rel="external">官方文档</a>」。</p>
+<h2 id="2-3、注册云主机-备案"><a href="#2-3、注册云主机-备案" class="headerlink" title="2.3、注册云主机 + 备案"></a>2.3、注册云主机 + 备案</h2><p>2018年上半年，腾讯云搞了个学生主机1折优惠活动，1C2G的主机，主要10块钱一个月，最高可以续满3年，一共360块钱（甚至早期还有活动bug，可以申请降配置为1C1G，差价补成时长，即360块6年的云主机）。</p>
+<p>所以我就在「<a href="https://cloud.tencent.com" target="_blank" rel="external">腾讯云</a>」注册了一台云主机。然后为了方便开通80端口，也为了可以认证使用HTTPS，就去对云主机申请了备案（其实是一开始不知道HTTPS的443端口不需要备案，也不知道是不是个bug）。</p>
+<p><strong>备案流程并不复杂：</strong> 腾讯云的「<a href="https://cloud.tencent.com/document/product/243/655" target="_blank" rel="external">备案流程图解</a>」</p>
+<ul>
+<li><p>首先是认证主体信息，其中拍照包括身份证正反面（武汉地区还需要「<strong>武汉市居住证</strong>」正反面），还有手持身份证的半身照。</p>
+</li>
+<li><p>然后就是生成一张备案资料表，其中还有包括备案用的域名、网站名称等手填资料，</p>
+</li>
+<li><p>第一轮拍照上传完之后，腾讯云的工作人员会对资料进行一个初审，一般在一个工作日内，早上提交下午就能收到反馈。初审完成后，就会要求补充一个带背景（幕布）的手持身份证照。</p>
+</li>
+<li><p>第二轮中要求的幕布手持照片，有两种种解决方案：</p>
+<ol>
+<li>是到指定的拍照地点拍照，由工作人员审核完资料后，再给上传照片。</li>
+<li>是填写一个收货地址，腾讯免费给你邮寄一份拍照幕布，自己拍了再行上传。</li>
+</ol>
+</li>
+<li>上传完第二轮的幕布照片后，大概也需要1个工作日，腾讯云的工作人员审核过后，就会给你电话联系，确认照片是否是本人，是否有修改编辑过等等。</li>
+<li>电话联系过后，腾讯云的工作人员就会将你的备案资料提交至当地管局进行最终审核。</li>
+<li>最后等待大约1个自然月左右的时间（20个工作日），就会收到备案通过的手机短信和电子邮件。然后大概过半天到一天左右（并不是马上），80端口就可用了。</li>
+</ul>
+<h2 id="2-4、为域名申请免费SSL证书"><a href="#2-4、为域名申请免费SSL证书" class="headerlink" title="2.4、为域名申请免费SSL证书"></a>2.4、为域名申请免费SSL证书</h2><p>注册SSL证书我们用到的是「<a href="https://cloud.tencent.com" target="_blank" rel="external">腾讯云</a>」。</p>
+<p>为什么用腾讯云呢？嗯，最早的历史原因，是因为腾讯云应该是最早提供「免费SSL证书」的国内（规模够大够靠谱的）服务商，国外的因为大部分都是英文的，而且使用起来比较麻烦，所以干脆直接在腾讯云搞。</p>
+<p>在此之后，「<a href="https://www.aliyun.com" target="_blank" rel="external">阿里云</a>」也跟着放出了申请免费SSL证书的服务了。但是由于<a href="https://www.aliyun.com/product/cas" target="_blank" rel="external">入口</a>比较隐秘，并且免费选项也比较隐秘，所以不做推荐。但我这里还是会在小节底部补充一下阿里云申请免费证书的方式，详情参见「<a href="#cas">阿里云申请免费CA证书方式</a>」。</p>
+<p>腾讯云申请SSL证书的流程就相对简单了，毕竟放的比较显眼，没那么隐秘。</p>
+<ul>
+<li>打开<a href="https://cloud.tencent.com" target="_blank" rel="external">腾讯云</a>，登录，进入控制台。</li>
+<li>在下方 <code>所有云产品</code> 的大列表下的 <strong><code>域名与网站</code></strong> 大类中，选择<code>SSL 证书管理</code>。（）</li>
+</ul>
+<h3 id="「番外篇」阿里云申请免费CA证书方式"><a href="#「番外篇」阿里云申请免费CA证书方式" class="headerlink" title="「番外篇」阿里云申请免费CA证书方式"></a><span id="cas">「番外篇」阿里云申请免费CA证书方式</span></h3><ul>
+<li>打开「<a href="https://www.aliyun.com" target="_blank" rel="external">阿里云</a>」，并且登录控制台</li>
+<li>选择顶部<code>产品与服务▼</code>，在展开的菜单中，选择<code>安全（云盾）</code>大项下的<code>CA证书服务（云盾数据安全）</code>。</li>
+<li>选择左上角的 <div style="width:100px;height:30px;line-height:30px;text-align:center;background-color:#20C1DD;color:#FFFFFF;display:inline-block;">购买证书</div> 按钮。</li>
+<li>登入购买页面后，先在 <strong><code>基本配置</code></strong> 项目中的第三行<code>选择品牌</code>项中，选中<div style="width:100px;height:30px;line-height:30px;text-align:center;background-color:#20C1DD;color:#FFFFFF;display:inline-block;">Symantec</div>项。</li>
+<li>然后再在第二行<code>保护类型</code>中，选中<div style="width:100px;height:30px;line-height:30px;text-align:center;background-color:#20C1DD;color:#FFFFFF;display:inline-block;">1个域名</div>项。</li>
+<li>最后，会发现在第一行<code>证书类型</code>里面出现了我们准备薅的羊毛 - <div style="width:120px;height:30px;line-height:30px;text-align:center;background-color:#20C1DD;color:#FFFFFF;display:inline-block;">免费型DV SSL</div>项。</li>
+<li>选中<div style="width:120px;height:30px;line-height:30px;text-align:center;background-color:#20C1DD;color:#FFFFFF;display:inline-block;">免费型DV SSL</div>项后，你会发现旁边的配置费用为 <div style="display:inline-block;color:orange;"><strong>¥ 0.00</strong></div> 了。</li>
+<li>点击<div style="width:100px;height:30px;line-height:30px;text-align:center;background-color:orange;color:#FFFFFF;display:inline-block;">立即购买</div>，进入下一页。勾选 <code>□《云盾证书服务(包年)服务协议》</code>后，点击<div style="width:100px;height:30px;line-height:30px;text-align:center;background-color:orange;color:#FFFFFF;display:inline-block;">去支付</div>。</li>
+<li>后续操作就可以跟着提示一步一步来了。</li>
+</ul>
+<h2 id="2-5、-非必选-优化Ubuntu软件源"><a href="#2-5、-非必选-优化Ubuntu软件源" class="headerlink" title="2.5、[非必选]优化Ubuntu软件源"></a>2.5、[非必选]优化Ubuntu软件源</h2><p>由于某些不可抗拒原因，国内连接国外的各种软件源会非常非常的卡，各种连不上。国内的几大巨头，为了解决这种问题，专门搭建了自己的软件源，方便了国内不擅长用「梯子」的程序员们的开发。</p>
+<blockquote>
+<p>国内的云主机服务商，自带的Ubuntu操作系统，一般都是做过一定程度的定制，如软件源之类的都默认指向了服务商自己的源，省去了我们改源的操作。</p>
+</blockquote>
+<p>如果我们用的不是国内的云主机，而是为了学习什么的搭建了自己的虚拟机的话，我们在安装完系统之后，就可以修改一下我们默认的软件源。</p>
+<p>以<code>Ubuntu 16.04 LTS</code> Desktop版 为例：</p>
+<ul>
+<li>打开sources.list</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
+<ul>
+<li>将里面的内容替换为：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># deb cdrom:[Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1)]/ xenial main restricted</div><div class="line">deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-properties</div><div class="line">deb http://archive.canonical.com/ubuntu xenial partner</div><div class="line">deb-src http://archive.canonical.com/ubuntu xenial partner</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-properties</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse</div></pre></td></tr></table></figure>
+<ul>
+<li>再次更新apt：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update</div></pre></td></tr></table></figure>
+<p>参考文章：「<a href="https://www.cnblogs.com/mufire/p/6433757.html" target="_blank" rel="external">ubuntu16.04LTS更换阿里源</a>」</p>
+<h3 id="「番外篇」其他Ubuntu小问题"><a href="#「番外篇」其他Ubuntu小问题" class="headerlink" title="「番外篇」其他Ubuntu小问题"></a>「番外篇」其他Ubuntu小问题</h3><h4 id="2-5-1、-刚安装好Ubuntu，没中文输入法的解决办法"><a href="#2-5-1、-刚安装好Ubuntu，没中文输入法的解决办法" class="headerlink" title="2.5.1、 刚安装好Ubuntu，没中文输入法的解决办法"></a>2.5.1、 刚安装好Ubuntu，没中文输入法的解决办法</h4><p>参考地址：「<a href="http://blog.csdn.net/suxiang198/article/details/52040283" target="_blank" rel="external">Ubuntu16.04安装中文输入法</a>」</p>
+<p>PS.装完记得一定要重启，要重启，要重启！</p>
+<h4 id="2-5-2、-刚安装好Ubuntu，各种报错的解决办法"><a href="#2-5-2、-刚安装好Ubuntu，各种报错的解决办法" class="headerlink" title="2.5.2、 刚安装好Ubuntu，各种报错的解决办法"></a>2.5.2、 刚安装好Ubuntu，各种报错的解决办法</h4><p>每次登录Ubuntu系统都会提示系统有一个错误，请求报告错误。屏蔽方法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo rm /var/crash/*</div><div class="line">$ sudo gedit /etc/default/apport</div></pre></td></tr></table></figure>
+<p>将enabled设置为0 </p>
+<h4 id="2-5-3、获取Ubuntu的su用户密码"><a href="#2-5-3、获取Ubuntu的su用户密码" class="headerlink" title="2.5.3、获取Ubuntu的su用户密码"></a>2.5.3、获取Ubuntu的su用户密码</h4><p>打开一个新的终端。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo passwd</div></pre></td></tr></table></figure>
+<p>输入你的账号密码，然后重复两次su的新密码。<br>su的密码就被你修改过来了。</p>
+<p>再次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ su</div></pre></td></tr></table></figure>
+<p>即可进入su用户。</p>
+<h2 id="2-6、安装Nginx"><a href="#2-6、安装Nginx" class="headerlink" title="2.6、安装Nginx"></a>2.6、安装Nginx</h2><p>其实安装Nginx有两种方式，一种直接在系统中安装，另一种是通过docker来安装。</p>
+<p>我使用的是通过系统自带的apt-get模式来进行安装的。目前从短期使用下来看，并没有本质上的区别。从长远来看，有利有弊。弊端是升级可能不如docker版的方便，如果卸载估计也没docker版的直接rm那么彻底。但是好处是直接调用系统底层，刨除性能问题外，还有方便调试和修改等优势。</p>
+<p>那么，就基于我现在正在使用的直接安装的方式来讲解一下安装流程。</p>
+<ul>
+<li>首先是更新一下安装源</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update</div></pre></td></tr></table></figure>
+<ul>
+<li>接着安装nginx。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install nginx</div></pre></td></tr></table></figure>
+<p>安装完成后，通过IP或绑定的域名打开，应该就可以看到nginx的欢迎页面了。（刚申请的主机不会马上被Ban80端口，还有个测试的机会。）</p>
+<h2 id="2-7、安装Docker"><a href="#2-7、安装Docker" class="headerlink" title="2.7、安装Docker"></a>2.7、安装Docker</h2><p>阿里官网地址源：「<a href="http://mirrors.aliyun.com" target="_blank" rel="external">Ali-OSM<br>(Alibaba Open Source Mirror Site)</a>」</p>
+<p>然后找到列表中的「 <strong><code>docker-ce</code></strong> 」,点开右边的 「<a href="http://mirrors.aliyun.com/help/docker-ce" target="_blank" rel="external">help</a>」，可以到帮助页面，下面有一个「<strong><a href="https://yq.aliyun.com/articles/110806" target="_blank" rel="external">相关链接</a></strong>」，点开就是一篇安装指导文章。</p>
+<h3 id="安装帮助"><a href="#安装帮助" class="headerlink" title="安装帮助"></a>安装帮助</h3><p>Ubuntu 14.04 16.04 (使用apt-get进行安装)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># step 1: 安装必要的一些系统工具</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</div><div class="line"># step 2: 安装GPG证书</div><div class="line">curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</div><div class="line"># Step 3: 写入软件源信息</div><div class="line">sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</div><div class="line"># Step 4: 更新并安装 Docker-CE</div><div class="line">sudo apt-get -y update</div><div class="line">sudo apt-get -y install docker-ce</div><div class="line"></div><div class="line"># 安装指定版本的Docker-CE:</div><div class="line"># Step 1: 查找Docker-CE的版本:</div><div class="line"># apt-cache madison docker-ce</div><div class="line">#   docker-ce | 17.03.1~ce-0~ubuntu-xenial | http://mirrors.aliyun.com/docker-ce/linux/ubuntu xenial/stable amd64 Packages</div><div class="line">#   docker-ce | 17.03.0~ce-0~ubuntu-xenial | http://mirrors.aliyun.com/docker-ce/linux/ubuntu xenial/stable amd64 Packages</div><div class="line"># Step 2: 安装指定版本的Docker-CE: (VERSION 例如上面的 17.03.1~ce-0~ubuntu-xenial)</div><div class="line"># sudo apt-get -y install docker-ce=[VERSION]</div></pre></td></tr></table></figure>
+<p>CentOS 7 (使用yum进行安装)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"># step 1: 安装必要的一些系统工具</div><div class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</div><div class="line"># Step 2: 添加软件源信息</div><div class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</div><div class="line"># Step 3: 更新并安装 Docker-CE</div><div class="line">sudo yum makecache fast</div><div class="line">sudo yum -y install docker-ce</div><div class="line"># Step 4: 开启Docker服务</div><div class="line">sudo service docker start</div><div class="line"></div><div class="line"># 注意：</div><div class="line"># 官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，你可以通过以下方式开启。同理可以开启各种测试版本等。</div><div class="line"># vim /etc/yum.repos.d/docker-ce.repo</div><div class="line">#   将 [docker-ce-test] 下方的 enabled=0 修改为 enabled=1</div><div class="line">#</div><div class="line"># 安装指定版本的Docker-CE:</div><div class="line"># Step 1: 查找Docker-CE的版本:</div><div class="line"># yum list docker-ce.x86_64 --showduplicates | sort -r</div><div class="line">#   Loading mirror speeds from cached hostfile</div><div class="line">#   Loaded plugins: branch, fastestmirror, langpacks</div><div class="line">#   docker-ce.x86_64            17.03.1.ce-1.el7.centos            docker-ce-stable</div><div class="line">#   docker-ce.x86_64            17.03.1.ce-1.el7.centos            @docker-ce-stable</div><div class="line">#   docker-ce.x86_64            17.03.0.ce-1.el7.centos            docker-ce-stable</div><div class="line">#   Available Packages</div><div class="line"># Step2 : 安装指定版本的Docker-CE: (VERSION 例如上面的 17.03.0.ce.1-1.el7.centos)</div><div class="line"># sudo yum -y install docker-ce-[VERSION]</div></pre></td></tr></table></figure>
+<p>安装校验</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">root@iZbp12adskpuoxodbkqzjfZ:$ docker version</div><div class="line">Client:</div><div class="line"> Version:      17.03.0-ce</div><div class="line"> API version:  1.26</div><div class="line"> Go version:   go1.7.5</div><div class="line"> Git commit:   3a232c8</div><div class="line"> Built:        Tue Feb 28 07:52:04 2017</div><div class="line"> OS/Arch:      linux/amd64</div><div class="line"></div><div class="line">Server:</div><div class="line"> Version:      17.03.0-ce</div><div class="line"> API version:  1.26 (minimum version 1.12)</div><div class="line"> Go version:   go1.7.5</div><div class="line"> Git commit:   3a232c8</div><div class="line"> Built:        Tue Feb 28 07:52:04 2017</div><div class="line"> OS/Arch:      linux/amd64</div><div class="line"> Experimental: false</div></pre></td></tr></table></figure>
+<p>参考资料我这里就不放了，可以参考前面的指导文章里面的链接。</p>
+<h2 id="2-8、安装Node-js-（or-Docker安装Node-js-or-打包整合Node-js绿色包）"><a href="#2-8、安装Node-js-（or-Docker安装Node-js-or-打包整合Node-js绿色包）" class="headerlink" title="2.8、安装Node.js （or Docker安装Node.js) (or 打包整合Node.js绿色包）"></a>2.8、安装Node.js （or Docker安装Node.js) (or 打包整合Node.js绿色包）</h2><p>在Ubuntu，我们在安装了docker的情况下，使用node.js有了多种选择：</p>
+<ul>
+<li>直接在Ubuntu中安装node.js</li>
+<li>通过docker安装node.js</li>
+<li>将node.js直接打包进项目镜像中</li>
+</ul>
+<p>下载docker版node镜像(由于我们用的是node.js 6.11.1，所以直接下载<strong>:6</strong>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull node:6</div></pre></td></tr></table></figure>
+<h2 id="2-9、Docker-安装-MySQL"><a href="#2-9、Docker-安装-MySQL" class="headerlink" title="2.9、Docker 安装 MySQL"></a>2.9、Docker 安装 MySQL</h2><p>拉取镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull mysql</div></pre></td></tr></table></figure>
+<p>启动容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -p 3306:3306 --name d_mysql -v /your/own/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=your-password -d mysql</div></pre></td></tr></table></figure>
+<h2 id="2-10、Docker-安装-Docker-Registry"><a href="#2-10、Docker-安装-Docker-Registry" class="headerlink" title="2.10、Docker 安装 Docker Registry"></a>2.10、Docker 安装 Docker Registry</h2><ul>
+<li>首先，我们需要拉取Registry的镜像</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull registry</div></pre></td></tr></table></figure>
+<ul>
+<li>第二步就是将容器跑起来</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -p 5000:5000 --privileged=true -v /home/ubuntu/docker/registry:/var/lib/registry registry</div></pre></td></tr></table></figure>
+<ul>
+<li>补充操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#查看容器是否正确启动</div><div class="line">http://127.0.0.1:5000/v2/</div><div class="line"></div><div class="line">#查看镜像</div><div class="line">http://127.0.0.1:5000/v2/_catalog</div></pre></td></tr></table></figure>
+<ul>
+<li>补充操作，添加用户管理，控制上传下载</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># 待补充</div></pre></td></tr></table></figure>
+<h2 id="2-11、配置SSL证书"><a href="#2-11、配置SSL证书" class="headerlink" title="2.11、配置SSL证书"></a>2.11、配置SSL证书</h2><p>我们从前面的步骤#2.4就已经申请好了SSL证书，#2.6就为Ubuntu安装好了nginx，下一步我们就是为Ubuntu配置域名和SSL证书关联关系，让我们的域名支持SSL（HTTPS）。</p>
+<p>我们接上步骤#2.4，可以从</p>
+<h2 id="2-12、Docker-打包node-js项目image，并上传Docker-Registry"><a href="#2-12、Docker-打包node-js项目image，并上传Docker-Registry" class="headerlink" title="2.12、Docker 打包node.js项目image，并上传Docker Registry"></a>2.12、Docker 打包node.js项目image，并上传Docker Registry</h2><ul>
+<li>我们利用docker形式进行安装。</li>
+<li>我们需要找一个demo示例程序。（目前用的是我自己的demo，就一个登录页面）</li>
+<li>clone下来之后，配置一下数据库指向。（settings.js）</li>
+<li>考虑到对方可能是内网环境，我们先安装好所有的依赖包。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install</div></pre></td></tr></table></figure>
+<ul>
+<li>在代码文件夹根路径下，生成Dockerfile文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># 指定我们的基础镜像是node，版本是v6</div><div class="line">FROM node:6-alpine</div><div class="line"> </div><div class="line"># Create app directory (在容器根目录中创建nodedemo文件夹，指定项目工作目录在该文件夹下)</div><div class="line">RUN mkdir -p /nodedemo</div><div class="line">WORKDIR /nodedemo</div><div class="line"></div><div class="line"># Bundle app source （从Dockerfile所在文件夹将项目内容拷贝到容器的/nodedemo文件夹下）</div><div class="line">ADD . /nodedemo</div><div class="line"> </div><div class="line"># 容器对外暴露的端口号 （请与内部app.js中定义的port一致）</div><div class="line">EXPOSE 3000</div><div class="line"> </div><div class="line"># 容器启动时执行的命令，类似npm run start</div><div class="line"># CMD [&quot;npm&quot;, &quot;start&quot;]</div><div class="line">CMD [&quot;node&quot;, &quot;app.js&quot;]</div></pre></td></tr></table></figure>
+<p>其中有一个需要比较关注的点：<strong><code>FROM node:6-alpine</code></strong></p>
+<blockquote>
+<p>该段代码在制定用的node版本为6之余，-alpine（阿尔卑斯/阿尔派）作为参数大大的缩减了镜像的空间。（从666M -&gt; 62M）</p>
+<p>尺寸缩小了近10倍。为push镜像节约流量打下了很重要的基础。</p>
+</blockquote>
+<p>对于选用版本的参考建议，可以参考官方说明：「<a href="https://hub.docker.com/_/node/" target="_blank" rel="external">Docker - node</a>」</p>
+<p>接着，我们在命令行中切换到Dockerfile文件所在文件夹路径，开始构建docker image。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t nodedemo .</div></pre></td></tr></table></figure>
+<p>ps.如果是为了上传到Registry，请直接-t ip:port/nodedemo,即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t dockerhub.imcjy.com/nodedemo .</div></pre></td></tr></table></figure>
+<p>参考文章：「<a href="https://segmentfault.com/a/1190000010541792" target="_blank" rel="external">Docker部署基于Nodejs的Web应用-实战篇</a>」</p>
+<h2 id="2-13、Docker-下载自建image并运行"><a href="#2-13、Docker-下载自建image并运行" class="headerlink" title="2.13、Docker 下载自建image并运行"></a>2.13、Docker 下载自建image并运行</h2><h1 id="3、小结"><a href="#3、小结" class="headerlink" title="3、小结"></a>3、小结</h1><h1 id="X、番外篇"><a href="#X、番外篇" class="headerlink" title="X、番外篇"></a>X、番外篇</h1><blockquote>
+<p>构建一个属于自己的博客，</p>
+</blockquote>
+<ul>
+<li>注册GitHub + 配置GitHub Pages</li>
+<li>安装Hexo</li>
+<li>安装Next主题</li>
+<li>推送到GitHub Pages</li>
+<li>添加域名解析</li>
+</ul>
+<p>巨大的优势： <strong>博客展示时，浏览器顶部是自己的域名。</strong> </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/域名/" rel="tag"># 域名</a>
+          
+            <a href="/tags/网站/" rel="tag"># 网站</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/10/db-js中两个历史遗留bug的发现和解决过程/" rel="prev" title="db.js中两个历史遗留bug的发现和解决过程">
+                db.js中两个历史遗留bug的发现和解决过程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="陈瑾毅" />
+          <p class="site-author-name" itemprop="name">陈瑾毅</p>
+           
+              <p class="site-description motion-element" itemprop="description">不要想太多，该干嘛干嘛。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文档施工中…"><span class="nav-text">文档施工中…</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0、概述"><span class="nav-text">0、概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1、目标"><span class="nav-text">1、目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、流程"><span class="nav-text">2、流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1、步骤"><span class="nav-text">2.1、步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2、注册域名-实名认证"><span class="nav-text">2.2、注册域名 + 实名认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3、注册云主机-备案"><span class="nav-text">2.3、注册云主机 + 备案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4、为域名申请免费SSL证书"><span class="nav-text">2.4、为域名申请免费SSL证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#「番外篇」阿里云申请免费CA证书方式"><span class="nav-text">「番外篇」阿里云申请免费CA证书方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5、-非必选-优化Ubuntu软件源"><span class="nav-text">2.5、[非必选]优化Ubuntu软件源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#「番外篇」其他Ubuntu小问题"><span class="nav-text">「番外篇」其他Ubuntu小问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-1、-刚安装好Ubuntu，没中文输入法的解决办法"><span class="nav-text">2.5.1、 刚安装好Ubuntu，没中文输入法的解决办法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-2、-刚安装好Ubuntu，各种报错的解决办法"><span class="nav-text">2.5.2、 刚安装好Ubuntu，各种报错的解决办法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-3、获取Ubuntu的su用户密码"><span class="nav-text">2.5.3、获取Ubuntu的su用户密码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6、安装Nginx"><span class="nav-text">2.6、安装Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7、安装Docker"><span class="nav-text">2.7、安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装帮助"><span class="nav-text">安装帮助</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8、安装Node-js-（or-Docker安装Node-js-or-打包整合Node-js绿色包）"><span class="nav-text">2.8、安装Node.js （or Docker安装Node.js) (or 打包整合Node.js绿色包）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9、Docker-安装-MySQL"><span class="nav-text">2.9、Docker 安装 MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-10、Docker-安装-Docker-Registry"><span class="nav-text">2.10、Docker 安装 Docker Registry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-11、配置SSL证书"><span class="nav-text">2.11、配置SSL证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-12、Docker-打包node-js项目image，并上传Docker-Registry"><span class="nav-text">2.12、Docker 打包node.js项目image，并上传Docker Registry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-13、Docker-下载自建image并运行"><span class="nav-text">2.13、Docker 下载自建image并运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、小结"><span class="nav-text">3、小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#X、番外篇"><span class="nav-text">X、番外篇</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈瑾毅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
