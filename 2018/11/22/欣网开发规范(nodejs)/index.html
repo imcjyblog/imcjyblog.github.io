@@ -1,0 +1,1542 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//cdn.jsdelivr.net/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="[TOC] 概述1.目的 欣网研发部的项目开发过程中，为了增加程序的可读性和程序的健壮性，方便后期程序的调试和维护，所以需要在开发过程中统一技术规范。  为提高团队协作效率, 便于后台人员添加功能及前端后期优化维护, 输出高质量的文档, 特制订此文档。本规范文档一经确认, 开发人员必须按本文档规范进行项目开发。本文档如有不对或者不合适的地方请及时提出, 经讨论决定后方可更改。  程序员可以了解任何">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我是陈瑾毅">
+<meta property="og:url" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/index.html">
+<meta property="og:site_name" content="我是陈瑾毅">
+<meta property="og:description" content="[TOC] 概述1.目的 欣网研发部的项目开发过程中，为了增加程序的可读性和程序的健壮性，方便后期程序的调试和维护，所以需要在开发过程中统一技术规范。  为提高团队协作效率, 便于后台人员添加功能及前端后期优化维护, 输出高质量的文档, 特制订此文档。本规范文档一经确认, 开发人员必须按本文档规范进行项目开发。本文档如有不对或者不合适的地方请及时提出, 经讨论决定后方可更改。  程序员可以了解任何">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/nodejs_title.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_title.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_mvc.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/nodejsdocker1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/nodejsdocker2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/filelist.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/weblist.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_resource.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_docs.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_theme_classic.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_theme_access.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_theme_gray.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/extjs_theme_neptune.jpg">
+<meta property="og:updated_time" content="2018-12-03T02:21:10.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我是陈瑾毅">
+<meta name="twitter:description" content="[TOC] 概述1.目的 欣网研发部的项目开发过程中，为了增加程序的可读性和程序的健壮性，方便后期程序的调试和维护，所以需要在开发过程中统一技术规范。  为提高团队协作效率, 便于后台人员添加功能及前端后期优化维护, 输出高质量的文档, 特制订此文档。本规范文档一经确认, 开发人员必须按本文档规范进行项目开发。本文档如有不对或者不合适的地方请及时提出, 经讨论决定后方可更改。  程序员可以了解任何">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/images/nodejs_title.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/"/>
+
+
+
+
+
+  <title>  | 我是陈瑾毅 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是陈瑾毅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/欣网开发规范(nodejs)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈瑾毅">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是陈瑾毅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T16:20:23+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="1-目的"><a href="#1-目的" class="headerlink" title="1.目的"></a>1.目的</h2><p> 欣网研发部的项目开发过程中，为了增加程序的可读性和程序的健壮性，方便后期程序的调试和维护，所以需要在开发过程中统一技术规范。</p>
+<p> 为提高团队协作效率, 便于后台人员添加功能及前端后期优化维护, 输出高质量的文档, 特制订此文档。本规范文档一经确认, 开发人员必须按本文档规范进行项目开发。本文档如有不对或者不合适的地方请及时提出, 经讨论决定后方可更改。</p>
+<ul>
+<li>程序员可以了解任何代码，弄清程序的状况；</li>
+<li>新人可以很快的适应环境；</li>
+<li>防止新接触Node.js的人出于节省时间的需要，自创一套风格并养成终生的习惯；</li>
+<li>防止新接触Node.js的人一次次的犯同样的错误；</li>
+<li>在一致的环境下，人们可以减少犯错的机会；</li>
+<li>程序员们有了一致的敌人；</li>
+</ul>
+<p>符合web标准, 语义化html, 结构表现行为分离, 兼容性优良. 页面性能方面, 代码要求简洁明了有序, 尽可能的减小服务器负载, 保证最快的解析速度。</p>
+<h2 id="2-文档范围"><a href="#2-文档范围" class="headerlink" title="2.文档范围"></a>2.文档范围</h2><p> 本文档主要涵盖了欣网研发部的Node.js后端及Web前端开发组的所有开发工作语言细节。包括但不限于：javascript、css、Node.js、Extjs、MySQL、function、interface等方方面面的各种规范。</p>
+<h2 id="3-Node-js简介"><a href="#3-Node-js简介" class="headerlink" title="3.Node.js简介"></a>3.Node.js简介</h2><p><img src="./images/nodejs_title.jpg" alt="nodejs_title"></p>
+<h3 id="Node-js-是什么？-nodejs"><a href="#Node-js-是什么？-nodejs" class="headerlink" title="Node.js 是什么？[^nodejs]"></a>Node.js 是什么？[^nodejs]</h3><ul>
+<li><p>Node.js是JavaScript语言的服务器运行环境。</p>
+</li>
+<li><p>所谓“运行环境”有两层意思：首先，JavaScript语言通过Node在服务器运行，在这个意义上，Node.js有点像JavaScript虚拟机；其次，Node.js提供大量工具库，使得JavaScript语言与操作系统互动（比如读写文件、新建子进程），在这个意义上，Node.js又是JavaScript的工具库。</p>
+</li>
+<li><p>Node.js内部采用Google公司的V8引擎，作为JavaScript语言解释器；通过自行开发的libuv库，调用操作系统资源。</p>
+</li>
+</ul>
+<h3 id="概述：-nodejs2"><a href="#概述：-nodejs2" class="headerlink" title="概述：^nodejs2"></a>概述：<a href="引用自[fang_beny](https://www.cnblogs.com/fang-beny/p/4778591.html)的博文《NodeJS介绍》">^nodejs2</a></h3><ul>
+<li><p>Node.js是基于Chrome JavaScript运行时建立的一个平台，实际上它是对Google Chrome V8引擎进行了封装，它主要用于创建快速的、可扩展的网络应用。Node.js采用事件驱动和非阻塞I/O模型，使其变得轻微和高效，非常适合构建运行在分布式设备的数据密集型实时应用。</p>
+</li>
+<li><p>运行于浏览器的Javascript，浏览器就是Javascript代码的解析器，而Node.js则是服务器端JS的代码解析器，存于服务器端的JS代码由Node.js来解析和应用。</p>
+</li>
+<li><p>JS解析器只是JS代码运行的一种环境，浏览器是JS运行的一种环境，浏览器为JS提供了操作DOM对象和window对象等接口。Node.js也是JS的一种运行环境，node.js为JS提供操作文件、创建http服务、创建TCP、UDP服务等接口，所以Node.js可以完成其他后台语言能完成的工作。</p>
+</li>
+</ul>
+<h3 id="交互式运行环境：PEPL"><a href="#交互式运行环境：PEPL" class="headerlink" title="交互式运行环境：PEPL"></a>交互式运行环境：PEPL</h3><ul>
+<li><p>Node.js提供了一个交互式运行环境，通过这个环境，可以立即执行JS代码，使用方法类似于Chrome浏览器中Firebug插件中的Console。</p>
+</li>
+<li><p>在Linux环境进入终端后，属于”node”或者“nodejs”进入Node.js的交互式运行环境，Ctrl+d可以退出此环境。</p>
+</li>
+<li><p>查看系统中安装的Node.js版本：node -v or nodejs -v</p>
+</li>
+<li><p>运行JS文件，eg:node file.js or nodejs file.js</p>
+</li>
+</ul>
+<h3 id="Node-js模块和包"><a href="#Node-js模块和包" class="headerlink" title="Node.js模块和包"></a>Node.js模块和包</h3><ul>
+<li><p>模块</p>
+<p>Node.js官方提供了很多模块，这些模块分别实现了一种功能，如操作文件模块fs,构建http服务模块的http等，每个模块都是一个JS文件，当然也可以自己编   写模块。</p>
+</li>
+<li><p>包</p>
+<p>包可以将多个具有依赖关系的模块组织在一起，封装多个模块，以方便管理。Node.js采用了CommonJS规范，根据CommonJS规范规定，一个JS文件就是 一个模块，而包是一个文件夹，包内必须包含一个JSON文件，命名package.json。一般情况下，包内bin文件夹存放二进制文件，包内的lib文件夹存放JS文件，包内的doc文件夹存放文档，包内的test文件夹存放单元测试。package.json文件中需要包含的字段及包的使用。</p>
+</li>
+<li><p>npm包管理工具</p>
+<p>npm是node.js的包管理工具，npm定义了包依赖关系标准，我们使用npm主要用来下载第三方包和管理本地下载的第三方包。</p>
+</li>
+</ul>
+<h2 id="4-ExtJS简介-ext"><a href="#4-ExtJS简介-ext" class="headerlink" title="4.ExtJS简介[^ext]"></a>4.ExtJS简介[^ext]</h2><p><img src="./images/extjs_title.jpg" alt="extjs_title"></p>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
+<li><p>ExtJS是一个用javascript、CSS和HTML等技术实现的主要用于创建RIA即富客户端，且与后台技术无关的前端Ajax框架。</p>
+</li>
+<li><p>常用于企业内部管理系统、行政系统等SAP类型的应用。</p>
+</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li><p>提供了非常多的丰富、功能强大的组件。</p>
+</li>
+<li><p>面向组化件开发，区别于jQuery的面向Dom开发。</p>
+</li>
+<li><p>跨浏览器支持：IE、Chrome、Firefox、Safari、Opera。</p>
+</li>
+<li><p>框架体积庞大，适合编写内网项目。(ExtJS4.2.1的ext-all.js大小为1.46M)</p>
+</li>
+</ul>
+<h3 id="使用协议"><a href="#使用协议" class="headerlink" title="使用协议"></a>使用协议</h3><ul>
+<li>ExtJS提供2种使用协议：GPL3.0(免费) 和 商业协议(付费)。</li>
+</ul>
+<h3 id="MVC模式-extmvc"><a href="#MVC模式-extmvc" class="headerlink" title="MVC模式[^extmvc]"></a>MVC模式[^extmvc]</h3><p><img src="./images/extjs_mvc.jpg" alt="extjsmvc"></p>
+<p>ExtJS是一个MVC模式的框架(在ExtJS 5中加入了MVVM模式)。</p>
+<ul>
+<li><strong>MVC</strong>，全称为Model-View-Controller，即模型 - 视图 - 控制器，是一个用于编写软件的架构模式。它把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。此模式通过对复杂度的简化，使程序结构更加直观。</li>
+</ul>
+<p>ExtJS 4对各个部分定义的功能：</p>
+<ul>
+<li><p><strong>Model(模型)</strong> ：用于封装与应用程序的业务逻辑相关的数据以及对数据的处理方法。一个数据字段的集合，可通过关联被链接到其他模型和通过代理链接到一个数据流。</p>
+</li>
+<li><p><strong>View(视图)</strong> ：表示数据给用户。任何类型的组件，这些组件将信息输出到浏览器，如Form、Grid、Chart。</p>
+</li>
+<li><p><strong>Controller(控制器)</strong> ：是MVC应用程序的逻辑部分。它处理事件并作出响应。“事件”包括用户的行为和数据 Model 上的改变。Ext.app.Controller为控制器的基类。</p>
+</li>
+</ul>
+<h1 id="Node-js与微服务-microservice"><a href="#Node-js与微服务-microservice" class="headerlink" title="Node.js与微服务[^microservice]"></a>Node.js与微服务[^microservice]</h1><p><img src="./images/nodejsdocker1.png" alt="nodejsdockertitle"></p>
+<h2 id="微服务概述"><a href="#微服务概述" class="headerlink" title="微服务概述"></a>微服务概述</h2><p>微服务架构是一种构造应用程序的替代性方法。应用程序被分解为更小、完全独立的组件，这使得它们拥有更高的敏捷性、可伸缩性和可用性。一个复杂的应用被拆分为若干微服务，微服务更需要一种成熟的交付能力。持续集成、部署和全自动测试都必不可少。编写代码的开发人员必须负责代码的生产部署。构建和部署链需要重大更改，以便为微服务环境提供正确的关注点分离。</p>
+<p><img src="./images/nodejsdocker2.png" alt="nodejsdockertitle"></p>
+<h2 id="Node-js-in-微服务"><a href="#Node-js-in-微服务" class="headerlink" title="Node.js in 微服务"></a>Node.js in 微服务</h2><p>Node.js 是构建微服务的利器，为什么这么说呢，我们先看下 Node.js 有哪些优势：</p>
+<ul>
+<li>Node.js 采用事件驱动、异步编程，为网络服务而设计</li>
+<li>Node.js 非阻塞模式的IO处理给 Node.js 带来在相对低系统资源耗用下的高性能与出众的负载能力，非常适合用作依赖其它IO资源的中间层服务</li>
+<li>Node.js轻量高效，可以认为是数据密集型分布式部署环境下的实时应用系统的完美解决方案。</li>
+</ul>
+<p>这些优势正好与微服务的优势：敏捷性、可伸缩性和可用性相契合（捂脸笑），再看下 Node.js 的缺点：</p>
+<ul>
+<li>单进程，单线程，只支持单核CPU，不能充分的利用多核CPU服务器。一旦这个进程 down 了，那么整个 web 服务就 down 了</li>
+<li>异步编程，callback 回调地狱<br>第一个缺点可以通过启动多个实例来实现CPU充分利用以及负载均衡，话说这不是 K8s 的原生功能吗。第二个缺点更不是事儿，现在可以通过 generator、promise等来写同步代码，使得开发非常的方便。</li>
+</ul>
+<h1 id="项目规范"><a href="#项目规范" class="headerlink" title="项目规范"></a>项目规范</h1><h2 id="目录结构规范"><a href="#目录结构规范" class="headerlink" title="目录结构规范"></a>目录结构规范</h2><h3 id="整体代码："><a href="#整体代码：" class="headerlink" title="整体代码："></a>整体代码：</h3><ul>
+<li>api <code>所有接口的代码总目录</code><ul>
+<li>api/service <code>对应的服务接口目录</code><ul>
+<li>api/service/route.js <code>对应的接口路由文件 + 接口中间件</code></li>
+<li>api/service/api.js <code>接应的接口业务逻辑文件</code></li>
+</ul>
+</li>
+<li>api/libs <code>所有接口公用类库文件</code><ul>
+<li>api/libs/errors.js <code>公用错误提示枚举文件（含错误提示文本及错误码）</code></li>
+<li>api/libs/db.js    <code>公用数据库请求类</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>node_modules <code>项目三方基础模块</code></li>
+<li>routes <code>项目总路由文件夹</code><ul>
+<li>routes/routes.js <code>项目总路由文件</code></li>
+</ul>
+</li>
+<li>web <code>项目所有网页文件夹</code> <ul>
+<li>web/images <code>项目所有静态图片资源文件夹</code></li>
+<li>web/resource <code>项目所有框架资源文件夹</code></li>
+<li>web/其他项目文件夹 <code>对应的项目模块的网页文件夹</code></li>
+<li>web/index.html <code>项目网页入口，一般用作登录页总入口</code></li>
+</ul>
+</li>
+<li>app.js <code>项目入口文件</code></li>
+<li>LICENSE <code>许可文件</code></li>
+<li>package.json <code>项目包描述文件</code></li>
+<li>README.md <code>项目必读文件</code></li>
+<li>settings.js <code>项目中所有全局配置文件</code></li>
+</ul>
+<p><strong>如下图所示：</strong></p>
+<p><img src="./images/filelist.png" alt="文件列表"></p>
+<h2 id="ExtJS框架规范"><a href="#ExtJS框架规范" class="headerlink" title="ExtJS框架规范"></a>ExtJS框架规范</h2><h3 id="web文件夹下："><a href="#web文件夹下：" class="headerlink" title="web文件夹下："></a>web文件夹下：</h3><ul>
+<li>WebSystem <code>web服务模块目录</code><ul>
+<li>WebSystem/app <ul>
+<li>WebSystem/app/controller <code>ExtJS模块控制层文件夹</code></li>
+<li>WebSystem/app/store <code>ExtJS模块模型及数据层文件夹</code></li>
+<li>WebSystem/app/view <code>ExtJS模块视图层文件夹</code></li>
+<li>WebSystem/app/app.js    <code>ExtJS模块入口文件</code></li>
+</ul>
+</li>
+<li>WebSystem/common.js <code>公共工具类文件</code></li>
+<li>WebSystem/index.html <code>模块入口页面</code></li>
+<li>WebSystem/public.js <code>全局公用业务函数文件</code></li>
+<li>WebSystem/style.css <code>模块全局自定义样式表文件</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>如下图所示：</strong></p>
+<p><img src="./images/weblist.png" alt="文件列表"></p>
+<h2 id="ExtJS资源规范"><a href="#ExtJS资源规范" class="headerlink" title="ExtJS资源规范"></a>ExtJS资源规范</h2><h3 id="资源地址"><a href="#资源地址" class="headerlink" title="资源地址"></a>资源地址</h3><ul>
+<li><p>这里以ExtJS 4.2.1为版本进行介绍。</p>
+<ul>
+<li><p>官方GPL协议版本下载 ：<a href="http://cdn.sencha.com/ext/gpl/ext-4.2.1-gpl.zip" target="_blank" rel="external">http://cdn.sencha.com/ext/gpl/ext-4.2.1-gpl.zip</a></p>
+</li>
+<li><p>官方API ：<a href="http://docs.sencha.com/extjs/4.2.1/#!/api" target="_blank" rel="external">http://docs.sencha.com/extjs/4.2.1/#!/api</a></p>
+</li>
+<li><p>官方实例 ：<a href="http://docs.sencha.com/extjs/4.2.1/#!/example" target="_blank" rel="external">http://docs.sencha.com/extjs/4.2.1/#!/example</a></p>
+</li>
+<li><p>中文API(4.1.0版本) ：<a href="http://extjs-doc-cn.github.io/ext4api/" target="_blank" rel="external">http://extjs-doc-cn.github.io/ext4api/</a></p>
+</li>
+<li><p>4.2.1 CDN ：<a href="http://www.bootcdn.cn/extjs/4.2.1/" target="_blank" rel="external">http://www.bootcdn.cn/extjs/4.2.1/</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="资源目录说明"><a href="#资源目录说明" class="headerlink" title="资源目录说明"></a>资源目录说明</h3><ul>
+<li><a href="http://cdn.sencha.com/ext/gpl/ext-4.2.1-gpl.zip解压后截图：" target="_blank" rel="external">http://cdn.sencha.com/ext/gpl/ext-4.2.1-gpl.zip解压后截图：</a></li>
+</ul>
+<p><img src="./images/extjs_resource.png" alt="文件列表"></p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li><p><strong>builds</strong> ：ExtJS压缩后的代码，经过压缩的代码体积更小，加载更快。</p>
+</li>
+<li><p><strong>docs</strong> ： ExtJS的文档目录，index.html可查看ExtJS的API、Guides、Examples。</p>
+</li>
+<li><p><strong>examples</strong> ：Demo 目录，index.html可查看Demo列表。</p>
+</li>
+<li><p><strong>locale</strong> ：多国语言资源目录，其中ext-lang-zh_CN.js为简体中文(此文件遗漏了RadioGroup的必填提示)。</p>
+</li>
+<li><p><strong>pkgs</strong> ：ExtJS部分功能的打包文件。如：主题。</p>
+</li>
+<li><p><strong>plugins</strong> ：ExtJS所需要的插件目录。如：flash。</p>
+</li>
+<li><p><strong>resources</strong> ：ExtJS所用到的样式和图片等资源。包括4个主题：classic(经典：默认此主题)、access(稳重/黑色)、gray(灰色)、neptune(海王星)。</p>
+</li>
+<li><p><strong>src</strong> ：各组件的源代码。</p>
+</li>
+<li><p><strong>welcome</strong> ：访问页目录。</p>
+</li>
+</ul>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><ul>
+<li><p><strong>bootstrap.js</strong> ：引导文件，根据当前运行环境自动加载ext-all.js 或者 ext-all-dev.js文件。</p>
+</li>
+<li><p><strong>ext.js</strong> ：已压缩Js代码；基本框架，动态加载扩展类。</p>
+</li>
+<li><p><strong>ext-all.js</strong> ：已压缩Js代码；包括ExtJS整个框架。</p>
+</li>
+<li><p><strong>ext-all-debug.js</strong> ：未压缩Js代码；包括ExtJS整个框架。</p>
+</li>
+<li><p><strong>ext-debug.js</strong> ：未压缩Js代码；基本框架，动态加载扩展类。</p>
+</li>
+<li><p><strong>ext-all-rtl-debug.js</strong> ：未压缩Js代码；包括ExtJS整个框架并支持从右到左阅读。</p>
+</li>
+<li><p><strong>ext-all-rtl-sandbox-debug.js</strong> ：未压缩Js代码；包括ExtJS整个框架、支持从右到左阅读以及支持以沙盒方式使用其他版本的ExtJS。</p>
+</li>
+<li><p><strong>ext-all-rtl-sandbox.js</strong> ：已压缩Js代码；包括ExtJS整个框架、支持从右到左阅读以及支持以沙盒方式使用其他版本的ExtJS。</p>
+</li>
+<li><p><strong>ext-all-rtl.js</strong> ：已压缩Js代码；包括ExtJS整个框架并支持从右到左阅读。</p>
+</li>
+<li><p><strong>ext-all-sandbox-debug.js</strong> ：未压缩Js代码；包括ExtJS整个框架并支持以沙盒方式使用其他版本的ExtJS。</p>
+</li>
+<li><p><strong>ext-all-sandbox.js</strong> ：已压缩Js代码；包括ExtJS整个框架并支持以沙盒方式使用其他版本的ExtJS。</p>
+</li>
+</ul>
+<h3 id="docs-index-html"><a href="#docs-index-html" class="headerlink" title="docs/index.html"></a>docs/index.html</h3><p>docs/index.html 页面可查看ExtJS的API、Guides、Videos、Examples。</p>
+<p><img src="./images/extjs_docs.jpg" alt="文件列表"></p>
+<h3 id="运行图"><a href="#运行图" class="headerlink" title="运行图"></a>运行图</h3><p>展示4个主题的运行图</p>
+<p>classic(经典：默认此主题)、access(稳重/黑色)、gray(灰色)、neptune(海王星)。</p>
+<ul>
+<li>classic 经典主题</li>
+</ul>
+<p><img src="./images/extjs_theme_classic.jpg" alt="ext主题"></p>
+<ul>
+<li>access 稳重/黑色主题</li>
+</ul>
+<p><img src="./images/extjs_theme_access.jpg" alt="ext主题"></p>
+<ul>
+<li>gray 灰色主题</li>
+</ul>
+<p><img src="./images/extjs_theme_gray.jpg" alt="ext主题"></p>
+<ul>
+<li>neptune 海王星主题</li>
+</ul>
+<p><img src="./images/extjs_theme_neptune.jpg" alt="ext主题"></p>
+<ul>
+<li><p>自定义颜色主题</p>
+<ul>
+<li>ExtJS支持自定义颜色主题</li>
+</ul>
+</li>
+</ul>
+<h1 id="设计规范"><a href="#设计规范" class="headerlink" title="设计规范"></a>设计规范</h1><h2 id="前端部分开发规范-front"><a href="#前端部分开发规范-front" class="headerlink" title="前端部分开发规范^front"></a>前端部分开发规范<a href="引用自[古月亮](https://www.cnblogs.com/lohu/p/5635098.html)的博文《前端开发规范文档（初稿）》">^front</a></h2><h3 id="总体原则"><a href="#总体原则" class="headerlink" title="总体原则"></a>总体原则</h3><ul>
+<li><p>缩进</p>
+<p>对于所有编程语言，我们要求缩进必须是软tab（用空格字符）。在你的文本编辑器里敲 Tab 应该等于 4个空格 。</p>
+</li>
+<li><p>可读性 vs 压缩</p>
+<p>对于维护现有文件，我们认为可读性比节省文件大小更重要。大量空白和适当的ASCII艺术都是受鼓励的。任何开发者都不必故意去压缩HTML或CSS，也不必把Javascript代码最小化得面目全非。</p>
+<p>我们会在服务器端或build过程中自动最小化并gzip压缩所有的静态客户端文件，例如CSS和JS</p>
+</li>
+<li><p>HTML,CSS,JS代码分离</p>
+<p>html代码尽量保持整洁，采用最简单的代码层级完成复杂的布局要求，方便以后的维护和扩展</p>
+<p>css代码本身都是全局的，所有应当采用css模块化思想，约束css的规则，尽量减少对全局的污染</p>
+<p>JS代码分为功能代码和业务代码，功能代码尽量抽取成功能组件，方便团队内其他同事的使用</p>
+</li>
+<li><p>命名规范</p>
+<p>文件及文件夹: 全部英文小写字母+数字或连接符”- , _ “，不可出现其他字符 如：jquery.1.x.x.js</p>
+<p>文件：调用 /libs 文件需包含版本号，压缩文件需包含min关键词，其他插件则可不包含 如：/libs/modernizr-1.7.min.js</p>
+<p>ID: 小駝峰式命名法 如：firstName topBoxList footerCopyright</p>
+<p>Class: [减号连接符] 如：top-item main-box box-list-item-1</p>
+<p>尽量使用语义明确的单词命名，避免 left bottom 等方位性的单独的词语命名样式</p>
+</li>
+</ul>
+<h3 id="html规范"><a href="#html规范" class="headerlink" title="html规范"></a>html规范</h3><ul>
+<li><p>基本语法</p>
+<p>在属性上，使用双引号，不要使用单引号。</p>
+<p>不要在自动闭合标签结尾处使用斜线 - HTML5 规范 指出他们是可选的。</p>
+<p>不要忽略可选的关闭标签（例如， 和 ）。</p>
+<p>尽量用class来渲染样式，避免用id来写样式</p>
+</li>
+<li><p>Doctype</p>
+<p>在每个 HTML 页面开头使用这个简单地 doctype 来启用标准模式，使其每个浏览器中尽可能一致的展现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>字符编码</p>
+<p>通过声明一个明确的字符编码，让浏览器轻松、快速的确定适合网页内容的渲染方式。这样做之后，需要避免在 HTML 中出现字符实体，直接提供字符与文档一致的编码（通常是 UTF-8）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">&lt;/head&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>兼容模式</p>
+<p>优先使用最新版本的IE 和 Chrome 内核</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>基本的SEO</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;keywords&quot; content=&quot;your keywords&quot;&gt;</div><div class="line">&lt;meta name=&quot;description&quot; content=&quot;your description&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>viewport 设置</p>
+<ul>
+<li>viewport: 一般指的是浏览器窗口内容区的大小，不包含工具条、选项卡等内容；</li>
+<li>width: 浏览器宽度，输出设备中的页面可见区域宽度；</li>
+<li>device-width: 设备分辨率宽度，输出设备的屏幕可见宽度；</li>
+<li>initial-scale: 初始缩放比例；</li>
+<li>minimum-scale: 最小缩放比例；</li>
+<li>maximum-scale: 最大缩放比例；</li>
+<li>user-scalable: 时候可以允许用户对页面进行缩放</li>
+<li><p>minimal-ui，不支持（去除导航栏） 为移动端设备优化，设置可见区域的宽度和初始缩放比例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=640,user-scalable=no&quot;&gt;</div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>favicon</p>
+<p>在未指定 favicon 时，大多数浏览器会请求 Web Server 根目录下的 favicon.ico 。为了保证 favicon 可访问，避免404，必须遵循以下两种方法之一：</p>
+<ul>
+<li>在 Web Server 根目录放置 favicon.ico 文件；</li>
+<li>使用 link 指定 favicon；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;shortcut icon&quot; href=&quot;path/to/favicon.ico&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>移动端页头推荐配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">&lt;title&gt;title&lt;/title&gt;</div><div class="line">&lt;meta name=&quot;keywords&quot; content=&quot;&quot; /&gt;</div><div class="line">&lt;meta name=&quot;description&quot; content=&quot;&quot; /&gt;</div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=640,user-scalable=no&quot; /&gt;</div><div class="line">&lt;!--&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no,minimal-ui&quot;&gt;--&gt;</div><div class="line">&lt;meta http-equiv=&quot;cleartype&quot; content=&quot;on&quot;&gt;</div><div class="line">&lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;...&quot;&gt;</div><div class="line">&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;</div><div class="line">&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no&quot;&gt;</div><div class="line">&lt;meta http-equiv=&quot;x-rim-auto-match&quot; content=&quot;none&quot;&gt;</div><div class="line">&lt;meta name=&quot;apple-touch-fullscreen&quot; content=&quot;yes&quot;&gt;</div><div class="line">&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;&gt;</div><div class="line">&lt;!-- uc强制竖屏 --&gt;</div><div class="line">&lt;meta name=&quot;screen-orientation&quot; content=&quot;portrait&quot;&gt;</div><div class="line">&lt;!-- QQ强制竖屏 --&gt;</div><div class="line">&lt;meta name=&quot;x5-orientation&quot; content=&quot;portrait&quot;&gt;</div><div class="line">&lt;!-- UC强制全屏 --&gt;</div><div class="line">&lt;meta name=&quot;full-screen&quot; content=&quot;yes&quot;&gt;</div><div class="line">&lt;!-- QQ强制全屏 --&gt;</div><div class="line">&lt;meta name=&quot;x5-fullscreen&quot; content=&quot;true&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>CSS 和 JavaScript 结构、样式、行为分离</p>
+<p>尽量确保文档和模板只包含 HTML 结构，样式都放到样式表里，行为都放到脚本里。</p>
+<p>根据 HTML5 规范, 通常在引入 CSS 和 JavaScript 时不需要指明 type，因为 text/css 和 text/javascript 分别是他们的默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;code-guide.css&quot;&gt;</div><div class="line">&lt;script src=&quot;code-guide.js&quot;&gt;&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;style&gt;</div><div class="line">  /* ... */</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>实用高于完美</p>
+<p>尽量遵循 HTML 标准和语义，但是不应该以浪费实用性作为代价。任何时候都要用尽量小的复杂度和尽量少的标签来解决问题。</p>
+<p>在编写 HTML 代码时，需要尽量避免多余的父节点。很多时候，需要通过迭代和重构来使HTML 变得更少。 参考下面的示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!-- Not so great --&gt;</div><div class="line">&lt;span class=&quot;avatar&quot;&gt;</div><div class="line">  &lt;img src=&quot;...&quot;&gt;</div><div class="line">&lt;/span&gt; </div><div class="line"></div><div class="line">&lt;!-- Better --&gt;</div><div class="line">&lt;img class=&quot;avatar&quot; src=&quot;...&quot;&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>避免用 document.write 生成标签</p>
+<p>用 document.write生成标签让内容变得更难查找，更难编辑，<b>性能更差</b>。应该尽量避免这种情况的出现。</p>
+</li>
+</ul>
+<h3 id="CSS-规范"><a href="#CSS-规范" class="headerlink" title="CSS 规范"></a>CSS 规范</h3><ul>
+<li><p>总则</p>
+<ul>
+<li>外部文件LINK加载CSS，尽可能减少文件数。加载标签必须放在文件的 HEAD 部分。</li>
+<li>避免使用内联样式 不要在文件中用内联式引入的样式，不管它是定义在样式标签里还是直接定义在元素上。这样会很难追踪样式规则。</li>
+<li>使用 reset.css 让渲染效果在不同浏览器中更一致。</li>
+<li>避免使用CSS表达式（Expression）</li>
+<li>不要用@import</li>
+<li>避免使用ID选择器</li>
+<li>避免使用开销大的CSS选择器 如：*</li>
+<li>禁止给class加上html标签 如：li.list</li>
+<li>避免让选择符看起来像正则表达式 如：[name=’aa’] 高级选择器执行耗时长且不易读懂，避免使用。</li>
+<li>避免直接使用html tag作为样式选择器</li>
+<li>避免使用 !important</li>
+<li>有节制的使用css3伪元素</li>
+<li>避免使用css3 低效属性，如：linear-gradient，borde-image；</li>
+<li>使用语义化、通用的命名方式；</li>
+<li>使用连字符 - 作为 Class 名称界定符，不要驼峰命名法和下划线；</li>
+<li>避免选择器嵌套层级过多，尽量少于 3 级；</li>
+</ul>
+</li>
+<li><p>用css模块化</p>
+<p>css代码本身都是全局的，所有应当采用css模块化思想，约束css的规则，尽量减少对全局的污染</p>
+</li>
+<li><p>属性简写</p>
+<p>坚持限制属性取值简写的使用，属性简写需要你必须显式设置所有取值。常见的属性简写滥用包括:</p>
+<ul>
+<li>padding</li>
+<li>margin</li>
+<li>font</li>
+<li>background</li>
+<li>border</li>
+<li>border-radius</li>
+</ul>
+<p>大多数情况下，我们并不需要设置属性简写中包含的所有值。例如，HTML 头部只设置上下的 margin，所以如果需要，只设置这两个值。过度使用属性简写往往会导致更混乱的代码，其中包含不必要的重写和意想不到的副作用。</p>
+</li>
+<li><p>一行还是多行书写？</p>
+<p>css实例都是用的多行的格式，每一对属性和值占单独一行。这个是广泛使用的约定，不仅是在css文件中，也多出现在书里和文章里。许多人认为他的可读性很好。</p>
+<p>然而在和团队的工作中，尤其是大型的css文件，我是将样式写成多行，并使用css模块化思想:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.alert-window &#123;</div><div class="line">       background: #fff; </div><div class="line">       border: 1px solid #ff0; </div><div class="line">       font-weight: bold;</div><div class="line">       padding: 10px;</div><div class="line">       &#125;</div><div class="line">.alert-window .window-title&#123;</div><div class="line">　　　　...</div><div class="line">　　　　&#125;</div><div class="line">.alert-window .window-content&#123;</div><div class="line">　　　　...　　</div><div class="line">　　　　&#125;</div><div class="line">.alert-window .window-buttom&#123;</div><div class="line">　　　　...</div><div class="line">　　　　&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p> PS:</p>
+<ol>
+<li>现在纯手写css比较少了，一般 都是用sass 和 less 来管理样式。</li>
+<li>书写sass 和 less 一行简直就是灾难 3 css 多行书写，还有个好处，可以要求团队，css 输出按照盒子模型的顺序去书写，更好维护，不强制但是倡导输出是一致的。</li>
+</ol>
+<h3 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h3><ul>
+<li><p>命名规范</p>
+<ul>
+<li>使用单引号’而不是双引号”</li>
+<li>类的命名使用骆驼命名规则，并且首字母大写，例如： Account, EventHandler</li>
+<li>常量必须使用大写，在对象（类）或者枚举变量的前部声明，骆驼命名规则</li>
+<li>类的私有变量和属性建议以 _开头。例如：var _buffer; _init:function(){}</li>
+</ul>
+</li>
+<li><p>变量</p>
+<ul>
+<li>必须全部小写字符组成</li>
+<li>变量必须在声明初始化以后才能使用，即便是 NULL 类型。</li>
+<li>在作用域顶端对变量赋值，这有助于避免变量声明问题和与声明提升相关的问题</li>
+<li>变量不要产生歧义。</li>
+<li>相关的变量集应该放在同一代码块中，非相关的变量集不应该放在同一代码块中。</li>
+<li>变量应该尽量保持最小的生存周期。</li>
+<li>能直接使用直接量的，不要使用 new ….; 如： a=/\d/g; a=new RegExp(‘\d’,’g’);</li>
+</ul>
+</li>
+<li><p>不要用 void</p>
+</li>
+<li><p>不要用 with 语句</p>
+</li>
+<li><p>不要用 continue 语句</p>
+</li>
+<li><p>尽量不要用位运算</p>
+<p>PS：前端团队很少有科班出身的，位运算符效率不见得会有太高的性能，优势非常不明显，出发是高强度的算法需要，否则还是不要有位运算；它会造成代码的苦涩难懂，不利于后续的维护</p>
+</li>
+<li><p>不要扩充内置原型（Object,Array,String…）</p>
+</li>
+<li><p>不要用 eval();</p>
+</li>
+<li><p>+运算要注意</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&apos;1&apos;+1==2 //false;</div><div class="line">1+1==2 //true</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用简易条件判断方式</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">if (name !== 0 || name !== &apos;&apos; || name!==null || name!==undefined) &#123;</div><div class="line">...</div><div class="line">&#125;</div><div class="line"></div><div class="line">if (name) &#123;</div><div class="line">...</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">if (collection.length &gt; 0) &#123;</div><div class="line">  ...</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">if (collection.length) &#123;</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>使用三元表达式来代替简单的if else</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if(a)&#123;</div><div class="line">        d=&apos;b&apos;</div><div class="line">    &#125;else&#123;</div><div class="line">        d=&apos;c&apos;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    d=a?&apos;b&apos;:&apos;c&apos;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用&amp;&amp; 和 || 替代简单的if</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">if(a)&#123;</div><div class="line">        b()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    a &amp;&amp; c();</div><div class="line"></div><div class="line"></div><div class="line">    if(bb)&#123;</div><div class="line">        a=bb</div><div class="line">    &#125;else&#123;</div><div class="line">        a=2</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    a=bb||2</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用数组或json优化if else</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">if(a==&apos;1&apos; || a==&apos;b&apos; || a==&apos;c&apos; || a==&apos;ss&apos;)&#123;</div><div class="line">        bb();</div><div class="line">    &#125;else&#123;</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var hasData=&#123;</div><div class="line">        &apos;1&apos;:1,</div><div class="line">        &apos;b&apos;:1,</div><div class="line">        &apos;c&apos;:1,</div><div class="line">        &apos;ss&apos;:1</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if(hasData[a])&#123;</div><div class="line">        bb()</div><div class="line">    &#125;else&#123;</div><div class="line">    ...</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>不要在非函数块中(if, while etc)声明函数</p>
+<p>尽管浏览器允许你分配函数给一个变量，但坏消息是，不同的浏览器用不同的方式解析它。</p>
+<p>如果一定要定义函数，请用函数表达式方式声明；<br>如：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function b()&#123;</div><div class="line">    ...</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if(a)&#123;</div><div class="line">        function b()&#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var b=function()&#123;</div><div class="line">    ...</div><div class="line">    &#125;</div><div class="line">    if(a)&#123;</div><div class="line">        b=function()&#123;</div><div class="line">            ....</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>有else的if都要有{}</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if(a)</div><div class="line">        b()</div><div class="line">    else</div><div class="line">        c();</div><div class="line"></div><div class="line">    if(a)&#123;</div><div class="line">        b();</div><div class="line">    &#125;else&#123;</div><div class="line">        c();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>不要有多余逗号</p>
+<p>这会在IE6、IE7和IE9的怪异模式中导致一些问题；同时，在ES3的一些实现中，多余的逗号会增加数组的长度。在ES5中已经澄清。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var hero = &#123;</div><div class="line">   firstName: &apos;Kevin&apos;,</div><div class="line">   lastName: &apos;Flynn&apos;,</div><div class="line"> &#125;;</div><div class="line">	</div><div class="line"> var heroes = [</div><div class="line">   &apos;Batman&apos;,</div><div class="line">   &apos;Superman&apos;,</div><div class="line"> ];</div><div class="line">	</div><div class="line"> var hero = &#123;</div><div class="line">   firstName: &apos;Kevin&apos;,</div><div class="line">   lastName: &apos;Flynn&apos;</div><div class="line"> &#125;;</div><div class="line">	</div><div class="line"> var heroes = [</div><div class="line">   &apos;Batman&apos;,</div><div class="line">   &apos;Superman&apos;</div><div class="line"> ];</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用事件代理</p>
+<p>在分配低调（unobtrusive）的事件监听器时，通常可接受的做法是把事件监听器直接分派给那些会触发某个结果动作的元素。不过，偶尔也会有多个元素同时符合触发条件，给每个元素都分配事件监听器可能会对性能有负面影响。这种情况下，你就应该改用事件代理了</p>
+</li>
+</ul>
+<h2 id="Node-js代码规范-nodejscode"><a href="#Node-js代码规范-nodejscode" class="headerlink" title="Node.js代码规范[^nodejscode]"></a>Node.js代码规范[^nodejscode]</h2><h3 id="空格与格式"><a href="#空格与格式" class="headerlink" title="空格与格式"></a>空格与格式</h3><ul>
+<li><p>缩进</p>
+<ul>
+<li>采用2个空格缩进，而不是tab缩进，空格在编辑器中与字符是等宽的，</li>
+<li>而tab可能因编辑器的设置不同，并且2个空格会让代码看起来更紧凑、明快。</li>
+</ul>
+</li>
+<li><p>变量声明</p>
+<ul>
+<li>永远在声明 var (或let const)之后再使用变量，避免污染全局上下文，</li>
+<li><p>每行声明都应该带上var (或let const)，而不是只有一个var (或let const)：</p>
+<ul>
+<li><p>推荐的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var assert=require(&apos;assert&apos;);</div><div class="line">var fork=require(&apos;child_process&apos;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 不推荐的代码：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var assert=require(&apos;assert&apos;)</div><div class="line">,fork=require(&apos;child_process&apos;);</div></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>空格</p>
+<ul>
+<li><p>在操作符前后加上空格，比如 <code>+ - * / % =</code> 等。</p>
+<ul>
+<li><p>推荐的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var foo=&apos;bar&apos; + baz;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 不推荐的代码：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var foo=&apos;bar&apos;+baz;</div></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>单双引号的使用</p>
+<ul>
+<li>在Node中使用字符串尽量使用单引号。</li>
+</ul>
+</li>
+<li><p>大括号的位置：</p>
+<ul>
+<li><p>一般情况下，大括号无需另起一行：</p>
+<ul>
+<li><p>推荐的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">    // some code</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 不推荐的代码：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if (true)</div><div class="line">&#123;</div><div class="line">    // some code</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>逗号</p>
+<ul>
+<li>逗号用于变量声明的分割或是元素的分割，</li>
+<li>如果逗号不在行结尾，后面需要一个空格：var foo=’hello’, bar=’world’;</li>
+<li><p>逗号不要出现在行首。</p>
+<ul>
+<li><p>不推荐的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var hello=&#123;foo:&apos;hello&apos;</div><div class="line">    ,bar:world&apos;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>分号<ul>
+<li>尽管JavaScript编译器会自动给行尾添加分号，但还是要尽量给表达式的结尾添加分号。</li>
+</ul>
+</li>
+</ul>
+<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><ul>
+<li><p>变量命名</p>
+<ul>
+<li><p>变量名采用小驼峰式命名(即除了第一个单词的首字母不大写外，其余单词的首字母都大写，词与词之间没有任何符号)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var adminUser = &#123;&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方法命名</p>
+<ul>
+<li><p>与变量一样，采用小驼峰式命名，不过，方法名尽量采用动词或判断行词汇：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var getUser=function() &#123;&#125;;</div><div class="line">var isAdmin = function() &#123;&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>类命名</p>
+<ul>
+<li><p>采用大驼峰式命名，即所有单词的首字母都大写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function User() &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>常量命名</p>
+<ul>
+<li><p>单词的所有字母都大写，单词之间用下划线分割：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var PINK_COLOR = &apos;pink&apos;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>文件命名</p>
+<ul>
+<li><p>尽量采用下划线分割单词：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">child_process.js</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 如果不想将文件暴露给其他用户，约定以下划线开头：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_private.js</div></pre></td></tr></table></figure>
+</code></pre><h3 id="比较操作"><a href="#比较操作" class="headerlink" title="比较操作"></a>比较操作</h3><ul>
+<li>如果是“无容忍”的操作，尽量使用’===’代替’==’</li>
+</ul>
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><ul>
+<li>尽量使用 <code>{} []</code>代替<code>new Object()  new Array()</code>，不要使用<code>string bool number</code>对象类型，即不要调用<code>new String new Boollean new Number</code>。</li>
+</ul>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><ul>
+<li>慎用 with<ul>
+<li>这可能导致作用域混乱</li>
+</ul>
+</li>
+<li>慎用 eval()</li>
+</ul>
+<h3 id="类与模块"><a href="#类与模块" class="headerlink" title="类与模块"></a>类与模块</h3><ul>
+<li><p>类继承</p>
+<ul>
+<li><p>一般写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function Socket(options) &#123;</div><div class="line">    stream.Stearm.call(this);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 推荐使用Nodejs的类继承方式
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">util.inherits(Socket,stream.Stearm);</div></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>导出</p>
+<ul>
+<li><p>所有供外部调用的方法或变量均需挂载在 exports 变量上:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">exports.addUser() &#123;</div><div class="line">       //some code</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>当需要将文件当做一个类导出时，需要通过module.exports:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">module.exports=Class;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数设计规范-jsfunction"><a href="#函数设计规范-jsfunction" class="headerlink" title="函数设计规范^jsfunction"></a>函数设计规范<a href="引用自[axl234](https://www.cnblogs.com/axl234/p/3765705.html)的博文《js函数设计原则》">^jsfunction</a></h2><ul>
+<li><p>一般认为函数指具有返回值的子程序，过程指没有返回值的子程序。C++中把所有子程序成为函数，其实那些返回值为void的函数在语义上也是过程。函数与过程的区别更多是语义上的区别，而不是语法的区别。</p>
+</li>
+<li><p>语言纯化论者认为一个函数应该只有一个返回值，这和数学函数一样。即函数只接受输入（参数），通过参数运算返回结果。 除此之外的效果被称为函数的副作用，比如修改全局变量。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function sum1(x, y) &#123;</div><div class="line">	return x+y </div><div class="line">&#125;</div><div class="line"></div><div class="line">function sum2(x, y) &#123;</div><div class="line">	alert(x+y) </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>sum1是一个函数，它有输入并返回结果；sum2则是过程，接受输入，处理输入（打印输出结果），但没有返回结果。</li>
+</ul>
+<ul>
+<li><p>好的子程序需要遵循以下原则</p>
+<ul>
+<li>高内聚</li>
+<li>好的命名</li>
+<li>长度适中</li>
+<li>合理的参数</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-高内聚性"><a href="#1-高内聚性" class="headerlink" title="1.高内聚性"></a>1.高内聚性</h3><p> 内聚性是计算机科学里很重要的一个概念，由Larry Konstantin在1974年的一篇论文提出。它由分为以下</p>
+<ul>
+<li><p>功能内聚（Functional cohesion，最高）</p>
+<p>最好最强的一种内聚性，即一个子程序仅执行一个操作，有的书也称“只做一件事，做好一件事”。这种子程序执行的操作 与其名称多数是相符的，如sum执行相加，deletePage删除页面。</p>
+</li>
+<li><p>顺序上的内聚（Sequential cohesion）</p>
+<p>指子程序内需按特定顺序执行操作，这些步骤需要共享数据，且在全部执行后才完成子程序的完整功能。比如需要先计算A， 再使用A计算B，接着取B计算C。</p>
+</li>
+<li><p>通信上的内聚（Communicational cohesion）</p>
+<p>是指子程序不同操作使用了相同数据，但不存在任何联系。</p>
+</li>
+<li><p>临时的内聚性（Temporal cohesion）</p>
+<p>是指含有一些因为需要同时执行才放到一起的操作的子程序。</p>
+</li>
+<li><p>逻辑上的内聚性（Logical cohesion）</p>
+<p>是指若干操作被放入同一个程序中，通过传入的控制标志选择执行其中的一项操作。</p>
+</li>
+<li><p>偶热的内聚性（Coincidental cohesion 最低）</p>
+<p>指子程序中各个操作直接没有可以看到的内联，也称为“无内聚性”或“混乱的内聚性”。</p>
+</li>
+</ul>
+<h3 id="2、好的命名"><a href="#2、好的命名" class="headerlink" title="2、好的命名"></a>2、好的命名</h3><p>好的命名能清晰的描述子程序所做的一切。以下是一些命名注意事项</p>
+<ul>
+<li><p>描述子程序所完成的功能</p>
+</li>
+<li><p>避免使用无意义的、模拟或表达不清的词</p>
+</li>
+<li><p>不要仅通过数字来区分不同的子程序名</p>
+</li>
+<li><p>根据需要确定子程序名字的长度</p>
+</li>
+<li><p>对返回值要有所描述</p>
+</li>
+<li><p>一般是动词+名词形式</p>
+</li>
+<li><p>使用对仗词，如add/remove, begin/end, first/last, get/put, up/down/, show/hide, open/close。</p>
+</li>
+</ul>
+<h3 id="3-长度适中"><a href="#3-长度适中" class="headerlink" title="3.长度适中"></a>3.长度适中</h3><p>“子程序/函数的第一要素就是短小，第二条规则还是短小”，鲍勃大叔如此说。理论上认为子程序的长度最大长度通常是一屏代码，大约50-150行。</p>
+<p>一项对子程序的研究发现，平均100-150行代码的子程序需要修改的几率最低（Lind and Vairavan 1989）。</p>
+<p>IBM一项研究发现，最容易出错的是那些超过500行代码的子程序。超过500行后，子程序的出错率和代码行数成正比。在面向对象编程中，一大部分子程序都是访问器子程序（getter），它们都非常短小。任何时候复杂算法总会导致较长的子程序，这种情况下允许长度增加到100到200行。</p>
+<h3 id="4-合理的参数"><a href="#4-合理的参数" class="headerlink" title="4.合理的参数"></a>4.合理的参数</h3><p>子程序之间的接口是程序中最易出错的地方，Basili和Perrricone所做的一项研究发现程序中39%的错误都是属于内部接口错<br>误。也就是子程序间互相通信时所发生的错误。应该按以下原则处理</p>
+<ul>
+<li><p>按照输入-修改-输出的顺序排列参数。不要随机地按字母顺序排列参数，而应先列出输入参数，然后是即作为输入又作为输出的参数，最后是输出的参数。比如Ada就要专门的关键字in，out。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">procedure InvertMatrix &#123;</div><div class="line">	originalMatrix: in Matrix;</div><div class="line">	resultMatrix: out Matrix;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果几个子程序都用了类似的一些参数，应该让这些参数的排列顺序一致。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dom = &#123;</div><div class="line">	setWidth: function(elem, value) &#123;</div><div class="line">		// ...</div><div class="line">	&#125;,</div><div class="line"></div><div class="line">	setHeight: function(elem, value) &#123;</div><div class="line">		// ...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用所有的参数，既然定义了该参数就应该使用它，如果不用它就应该删掉它。</p>
+</li>
+<li><p>把状态或出错的变量放在后面，状态和那些用于指示发生错误的变量应放在参数表最后。它们只是程序的附属功能且只用 于输出的参数。</p>
+</li>
+<li><p>不要把子程序的参数用于工作变量</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function process(inputVal) &#123;</div><div class="line">	inputVal = inputVal - 10;</div><div class="line">	return inputVal </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段JS代码中，省略了一个变量声明，inputVal很容易让人误解，即是输入又是输出，改为如下</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">	function process(inputVal) &#123;</div><div class="line">		var outputVal = inputVal - 10;</div><div class="line">		return outputVal </div><div class="line">	&#125;</div><div class="line">	```　</div><div class="line"></div><div class="line">* 子程序的参数个数限制在7个以内。鲍勃大叔说的更极端 “最理想的参数数量是零，其次是单参数函数，再次是双参数函数，应尽量避免三参数函数”。心理学研究发现，人类很难记住超过7个单位的信息。这一发现已应用在各个领域。</div><div class="line"></div><div class="line">## 接口设计规范</div><div class="line"></div><div class="line">### 关于REST</div><div class="line"> </div><div class="line">前后端接口按照粗浅的REST规则制定，其主要表现为：</div><div class="line"> </div><div class="line">* 使用GET、POST、PUT、DELETE共4个HTTP Method，而非简单的GET和POST两者。</div><div class="line">* 响应使用HTTP状态码来标志请求的执行结果，而非以往的`success`字段。</div><div class="line">* URL符合业界普遍接受的REST规则，减少在URL中标识操作类型的情况，如使用`POST /users`代替`POST /users/save`。</div><div class="line"> </div><div class="line">出于技术的限制，对于一些特殊的场景，接口会在REST设计的基础之上进行一些妥协，具体参考各接口规范说明。</div><div class="line"> </div><div class="line">在REST接口规范中，URL符合以下约束：</div><div class="line"> </div><div class="line">* 实体名称均以复数形式表示，如`GET /users`或`POST /users/status`。</div><div class="line">* URL最后 不得 添加斜杠/符号。</div><div class="line">* 对于GET请求，数据在URL后通过标准的query格式提供，如`GET /users?status=1,2&amp;keyword=hello`。</div><div class="line"></div><div class="line">对于各系统，可以在URL前统一添加固定的前缀，如`GET /api/&#123;entities&#125;/&#123;id&#125;`，前缀应尽量固定。可以根据请求的类型（如是否需要用户登录授权等）使用不同的前缀。</div><div class="line"></div><div class="line">规范推荐按以下规则使用前缀：</div><div class="line"></div><div class="line">* 如果是需要登录授权的接口，以/api/js为前缀。</div><div class="line">* 其它接口，通常没有权限控制，以/api/tool为前缀。</div><div class="line"> </div><div class="line">### 关于数据类型</div><div class="line"> </div><div class="line">请求可以使用以下两类数据类型，由具体的项目及接口根据实际情况决定：</div><div class="line"> </div><div class="line">* 表单编码格式。此格式为简单的`a=b&amp;c=d`这一形式，使用此请求格式时，请求的Content-Type头的值必须为`application/x-www-form-urlencoded`。</div><div class="line">* JSON格式。此格式为一个完整的符合JSON格式的串，使用此请求格式时，请求的Content-Type头的值必须为`application/json`。</div><div class="line"> </div><div class="line">响应可以使用以下几类数据类型：</div><div class="line"> </div><div class="line">* JSON格式。多数接口应当使用JSON格式的响应，此时响应的Content-Type头的值必须为`application/json`。</div><div class="line"></div><div class="line">* HTML格式。部分接口，如文件上传，由于技术的限制必须使用`&lt;iframe&gt;`元素完成，返回的响应为一个HTML片段，此时响应的Content-Type头的值必须为text/html，且响应状态码必须为200，具体可参考下文的文件上传相关接口规范。</div><div class="line"></div><div class="line">* JSONP格式。当跨系统调用API时，会需要使用JSONP接口，此时响应的Content-Type头的值必须为`application/x-javascript`，使用请求的URL中的callback字段的值为函数名返回相应的JSONP片段。</div><div class="line"> </div><div class="line">### 关于编码</div><div class="line"> </div><div class="line">所有请求和响应均 **必须** 使用utf-8为编码。此标准体现在请求和响应的Content-Type头的值后必须配有`;charset=utf-8`字样。</div><div class="line"> </div><div class="line">对于前端使用JSONP的场景，则应当为`&lt;script&gt;`标签添加`charset=&quot;utf-8&quot;`属性。</div><div class="line"></div><div class="line">### 关于CSRF</div><div class="line"> </div><div class="line">系统必须对**CSRF**（客户端伪造请求）具有防御能力，因此在系统中，必须加上**CSRF Token**。</div><div class="line"> </div><div class="line">* **CSRF Token**在用户登录后，第一次加载用户信息时，由后端提供，其值为一个任意字符串。</div><div class="line"> </div><div class="line">* **CSRF Token**应当被应用在所有对数据有影响的接口中，包括所有的POST、PUT和DELETE请求；对于GET请求由于通常不影响数据，不会造成破坏性的后果，建议不使用**CSRF Token**。</div><div class="line"> </div><div class="line">* 在需要**CSRF Token**的每一个AJAX请求中，客户端必须添加名为`X-Session-Token`的请求头，其值为后端提供的**CSRF Token**。如果不提供`X-Session-Token`请求头，则后端应当返回400状态码。</div><div class="line"> </div><div class="line">* 对于非AJAX的请求，如文件上传，则应当在POST请求的表单中添加sessionToken字段，其值为后端给出的**CSRF Token**。</div><div class="line"> </div><div class="line">* 根据业务的需要和技术的限制，后端可对部分接口添加白名单，以使接口不需要**CSRF Token**即可请求，这通常用于获取当前用户信息前就必须请求的接口，由于此时前端不能获取**CSRF Token**，因此此类接口必须在白名单中，以确保系统可用。</div><div class="line"></div><div class="line">### 关于超时</div><div class="line"> </div><div class="line"> 系统的AJAX请求必须配有超时时间，具体时间可根据系统部署环境、网络状况、请求响应大小等因素决定，标准给出的参考值为15秒。</div><div class="line"> </div><div class="line">### 关于缓存</div><div class="line"> </div><div class="line">REST设计的一个原则为有效利用缓存，因此接口的设计 **必须** 将缓存作为一个因素，进行认真的设计并写入接口文档。</div><div class="line"> </div><div class="line">所有POST、PUT和DELETE请求均不缓存，这一点由浏览器自身保证，无需额外的配置。</div><div class="line"> </div><div class="line">对于GET请求，必须合理地配置缓存头，标准建议使用以下方式实现缓存：</div><div class="line"> </div><div class="line">* 如果资源是实时变化无法缓存的，则请求时带时间戳字段，时间戳字段的参数名为_，后端应当忽略此字段。同时无缓存的GET请求，响应中应当有`Cache-Control: no-cache`头，且 **不得** 含有ETag和Last-Modified头，如果包含Expires头，则其值必须为一个过去的时间。</div><div class="line"></div><div class="line">* 如果资源带有最后修改时间（如数据库中有last_update_time列），则建议将此时间作为响应的Last-Modified头返回，前端 **不对** 该请求添加时间戳，以实现正确的缓存。当可以生成Last-Modified头时，不建议同时生成ETag头。</div><div class="line"></div><div class="line">* 如果资源带有一个唯一的版本标识（如数据库中有rowid列），则建议将此标识值作为响应的ETag头返回，前端 **不对** 该请求添加时间戳，以实现正确的缓存。当可以生成ETag头时，不建议同时生成Last-Modified头，两者以Last-Modified头为优先。</div><div class="line"></div><div class="line">* 如果一个资源可以有假定的缓存时间，则通过`Cache-Control: max-age=&#123;seconds&#125;`或Expires响应头进行配置。标准建议使用此类缓存时慎重考虑，在请求不是系统性能瓶颈时，不建议使用此类缓存。</div><div class="line"> </div><div class="line">### 关于接口文档</div><div class="line"> </div><div class="line">接口文档应当 **至少** 包含以下内容：</div><div class="line"> </div><div class="line">* 接口的名称及简单的作用描述。</div><div class="line">* 接口的URL和请求时使用的HTTP Method。</div><div class="line">* 接口的请求格式及参数。</div><div class="line">* 接口可能返回的状态码，及每个状态码下的响应类型和格式。</div><div class="line">* 接口的缓存设计。</div><div class="line"> </div><div class="line">以下为一个典型的接口文档：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="用户列表"><a href="#用户列表" class="headerlink" title="用户列表"></a>用户列表</h2><p>用于获取用户列表，带分页功能</p>
+<h2 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h2><p>GET /users</p>
+<h2 id="请求参数："><a href="#请求参数：" class="headerlink" title="请求参数："></a>请求参数：</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>定义</th>
+<th>必需</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyword</td>
+<td>string</td>
+<td>查询关键词</td>
+<td></td>
+<td>“”</td>
+<td>作用于name和id字段</td>
+</tr>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>页码</td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>role</td>
+<td>number</td>
+<td>角色</td>
+<td></td>
+<td>全部</td>
+<td>参考角色枚举说明</td>
+</tr>
+<tr>
+<td>orderBy</td>
+<td>string</td>
+<td>排序字段名称</td>
+<td></td>
+<td>“id”</td>
+<td>可以使用”id”或”name”</td>
+</tr>
+<tr>
+<td>order</td>
+<td>string</td>
+<td>排序方式</td>
+<td></td>
+<td>“asc”</td>
+<td>可以为”asc”或”desc”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="响应："><a href="#响应：" class="headerlink" title="响应："></a>响应：</h2><h3 id="成功：200"><a href="#成功：200" class="headerlink" title="成功：200"></a>成功：200</h3><p>响应格式：JSON</p>
+<p>{<br>    totalCount: {number}, // 总数<br>    results: [<br>        {<br>            “id”: {number},<br>            “name”: {string},<br>            “role”: [{number}, …], // 角色，多个角色用数组表示<br>            “birthday”: {string}, // 生日使用YYYYMMDD格式<br>        },<br>        …<br>    ]<br>}</p>
+<p>缓存配置：使用<code>ETag</code>进行缓存。</p>
+<h3 id="参数不合法：409"><a href="#参数不合法：409" class="headerlink" title="参数不合法：409"></a>参数不合法：409</h3><p>参考标准409响应<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在文档中，对于一些整个项目统一的内容，如页码默认值为1之类，可以省略说明，在单独的总体设计文档中标注即可。</div><div class="line"></div><div class="line"></div><div class="line">## 数据库设计规范[^mysql]</div><div class="line"></div><div class="line">### 1.数据库命名规范</div><div class="line"></div><div class="line">* 所有的数据库对象名称必须使用小写字母并用下划线表示，因为默认情况下，mysql对大小写敏感，mysql数据库本质上是linux系统下的一个文件，而linux系统是大小写敏感的</div><div class="line">* 所有数据库对象名称禁止使用mysql保留关键字</div><div class="line">* 数据库对象的命名要能做到见名知意，并且最好不要超过32个字符。太长不方便使用，并且会在传输时增加网络开销</div><div class="line">* 临时表必须以tmp_为前缀并以日期为后缀</div><div class="line">* 备份表必须以bak_为前缀并以日期为后缀</div><div class="line">* 所有存储相同数据的列名和列类型必须一致，比如user表中的id和order表中的user_id</div><div class="line"></div><div class="line">### 2.数据库基本设计规范</div><div class="line"></div><div class="line">* 所有表必须使用Innodb存储引擎 </div><div class="line">	* 极少数特殊业务需求除外</div><div class="line">	* Innodb引擎是5.6之后的默认存储引擎；mysql5.5之前使用Myisam(默认存储引擎)</div><div class="line">	* Innodb优点：支持事务，行级锁，更好的恢复性，高并发下性能更好</div><div class="line">* 数据库和表的字符集统一使用UTF-8 </div><div class="line">	* 如果要存储一些如表情符号的，还需使用UTF-8的拓展字符集</div><div class="line">	* 数据库，表，字段字符集一定要统一，统一字符集可以避免由于字符集转换产生的乱码</div><div class="line">	* 在mysql中UTF-8字符集，汉字占3字节，ASCII码占1字节</div><div class="line">* 所有表和字段都需要添加注释</div><div class="line">* 从一开始就进行数据字典的维护 </div><div class="line">	* 即数据库说明文档</div><div class="line">* 尽量控制单表数据量大小， </div><div class="line">	* 建议控制在500万以内，虽然500万并不是mysql的数据库限制，但是会给修改表结构，备份，恢复带来很大困难。</div><div class="line">	* 单表可存储数据量大小取决于存储设置和文件系统</div><div class="line">	* 想减少单表数据量：历史数据归档(常见于日志表)，分库分表(常见于业务表)，分区表</div><div class="line">	* 建议不要使用mysql分区表，因为分区表在物理上表现为多个文件，在逻辑上表现为一个表。如果一定要分区，请谨慎选择分区键，跨分区查询效率比查询大数据量的单表查询效率更低</div><div class="line">	* 建议采物理分表的方式管理大数据，但是对应用程序的开发要求和复杂度更高</div><div class="line">* 尽量做到冷热数据分离，减少表的宽度(字段数) </div><div class="line">	* 减少磁盘IO，保证热数据的内存缓存命中率，更有效的利用缓存，避免读入无用的冷数据</div><div class="line">	* 这样的话，就要对表的列进行拆分，将经常使用的列放到一个表中，可以避免过多的关联操作，也可以提高查询性能</div><div class="line">* 禁止在表中建立预留字段 </div><div class="line">	* 预留字段很难做到见名知义，预留字段无法确定存储的数据类型，后期如果修改字段类型，会对全表锁定，严重影响数据库的并发性</div><div class="line">	* 对目前mysql来说，修改一个字段的成本要远远大于增加一个字段的成本</div><div class="line">* 禁止在数据库中存储图片，文件等二级制数据 </div><div class="line">	* 这类数据如果要存，就得使用blog或者text这样的大字段加以存储，会影响数据库的性能</div><div class="line">	* 文件这种通常所占数据容量很大，会在短时间内造成数据库文件的快速增长，而数据库在读取数据时，会进行大量的随机IO操作，如果数据文件过大，IO操作会非常耗时，从而影响数据库性能</div><div class="line">	* 正确做法是将这类数据存储在文件服务器中，而数据库只存储地址信息</div><div class="line">* 禁止在线上做数据库压力测试 </div><div class="line">	* 会对正常业务造成影响，也会产生很多垃圾数据</div><div class="line">	* 建议建立专门的压力测试数据库，进行测试，然后对比测试服务器和线上服务器的硬件环境，评估线上数据库的性能</div><div class="line">* 禁止从开发环境，测试环境直连生产环境数据库</div><div class="line"></div><div class="line">### 3.索引设计规范(Innodb中主键实质上是一个索引)</div><div class="line"></div><div class="line">* 限制每张表上索引数量，建议单表不超过5个索引。索引并不是越多越好，可以提高查询效率，但是会降低插入和更新的效率。甚至在一些情况下，还会降低查询效率，因为mysql优化器在选择如何优化查询时，会根据统计信息，对每一个可用索引来进行评估，以生成一个最好的执行计划，如果同时有很多索引都可以用于查询，就会增加mysql查询优化器生成查询计划的时间。</div><div class="line">* 每个Innodb表都必须有一个主键。Innodb是一种索引索引组织表，是指数据存储的逻辑顺序和索引的顺序是相同，Innodb是按照主键索引的顺序来组织表的，因此，每个Innodb表都必须要有一个主键，如果我们没有指定主键，那么Innodb会优先选择表中第一个非空唯一索引来作为主键，如果没有这个索引，那么Innodb会自动生成一个占6字节的主键，而这个主键的性能并不是最好。</div><div class="line">* 不使用更新频繁的列作为主键，不使用多列联合主键。因为Innodb是一种索引索引组织表，如果主键上的值频繁更新，就意味着数据存储的逻辑顺序频繁变动，必然会带来大量的IO操作，降低数据库性能。</div><div class="line">* 不要使用uuid，md5，hash，字符串列作为主键。因为这种主键不能保证主键的值是顺序增长的，如果后来的主键值在已有主键值的中间段，那么这个主键插入的时候，会将所有主键值大于它的列都向后移。</div><div class="line">* 最好选择能保证值的顺序为顺序增长的列为主键。并且数据不能重复，建议用mysql自增id建立主键</div><div class="line"></div><div class="line">* 应该在哪些列上建立索引? </div><div class="line">	* 在select，delete，update的where从句中的列</div><div class="line">	* 包含在order by，group by，distinct字段中的列</div><div class="line">	* 多表join的关联列：mysql对关联操作的处理方式只有一种，那就是嵌套循环的关联方式，所以这种操作的性能对关联列上的索引的依赖性很大</div><div class="line">* 复合索引，如何选择索引列的顺序? </div><div class="line">	* 从左到右的顺序来使用的</div><div class="line">	* 区分度(列中group by的数目和此列总行数的比值趋近于1)最高的列放在联合索引的最左侧</div><div class="line">	* 在区分度差不多的情况下，尽量吧字段长度小的放在联合索引的最左侧，因为同样的行数，字段小的文件也小，读取时IO性能更优</div><div class="line">	* 使用最频繁的列放在联合索引的左侧，这样的话，可以较少地建立索引就能满足需求</div><div class="line">* 避免建立冗余索引和重复索引</div><div class="line">* 对于频繁的查询优先使用覆盖索引 </div><div class="line">	* 就是包含了所有查询字段的索引，这样可以避免Innodb表进行索引的二次查找，并可以把随机IO变为顺序IO提高查询效率</div><div class="line">* **尽量避免使用外键**</div><div class="line">	* mysql和别的数据库不同，会自动在外键上建立索引，会降低数据库的写性能</div><div class="line">	* 建议不使用外键约束，但是一定要在表与表之间的关联键上建立索引，虽然外键是为了保证数据的完整性，但是最好在代码中去保证。</div><div class="line"></div><div class="line">### 4.字段设计规范</div><div class="line"></div><div class="line">* 优先选择符合存储需要的最小的数据类型 </div><div class="line">	* 尽量将字符串转化为数字类型存储：如将ip存储为数字：inet_aton(‘255.255.255.255’) = 4294967295 ,反之， inet_ntoa(4294967295) = ‘255.255.255.255’</div><div class="line">	* 对于非负整型数据，优先使用无符号整型来存储，如：id,age,无符号相对于有符号，可以多出一倍的存储空间</div><div class="line">	* mysql中，varchar(n)中n表示字符数而不是字节数</div><div class="line">* 避免使用text，blog来存储字段，这种类型只能使用前缀索引，如果非要使用，建议将这种数据分离到单独的拓展表中</div><div class="line">* 避免使用enum类型。枚举本身是一个字符串类型，但是内部确是用正数类型来存储的，所以最多可存储65535种不同的值，修改的话必须使用alter语句，直接修改元数据，有操作风险；order by效率低，必须转换并无法使用索引，禁止使用数值作为enum值，因为enum本身是索引顺序存储的，会造成逻辑混淆</div><div class="line">* 尽可能把所有列定义为not null。 </div><div class="line">	* 索引null列需要额外的空间来保存，占更多空间</div><div class="line">	* 进行比较和计算时，对null值作特别的处理，可能造成索引失效</div><div class="line">* 禁止使用字符串来存储日期型数据。 </div><div class="line">	* 无法使用日期函数计算比较</div><div class="line">	* 字符串存储要占更多的内存空间，datetime(8字节)和timestamp(本身是以int存储，占4字节,范围:1970-01-01 00:00:01到2038-01-19 03:14:07)</div><div class="line">* 财务相关数据，使用decimal类型 (精准浮点类型，在计算时不丢失精度)。</div><div class="line"></div><div class="line">### 5.SQL开发规范</div><div class="line"></div><div class="line">* 建议使用预编译语句(prepareStatment)进行数据库操作 </div><div class="line">	* 可以同步执行预编译计划，减少预编译时间</div><div class="line">	* 可以有效避免动态sql带来的SQL注入的问题</div><div class="line">	* 只传参数，一次解析，多次使用，比传递sql语句更高效</div><div class="line">* 避免数据类型的隐式转换 </div><div class="line">	* 一般出现在where从句中，会导致索引失效，如：select id,name from user where id = &apos;12&apos;;</div><div class="line">* 充分利用已存在的索引 </div><div class="line">	* 避免使用双%的查询条件，不走索引</div><div class="line">	* 一个SQL只能利用到复合索引中的一列进行范围查询</div><div class="line">	* 使用left join或not exists来优化not in操作</div><div class="line">* 程序连接不同的数据库使用不同的账号，禁止跨库查询 </div><div class="line">	* 为数据库迁移和分库分表留出余地</div><div class="line">	* 降低业务耦合度</div><div class="line">	* 避免权限过大而产生的安全风险</div><div class="line">* 禁止使用select * 来查询，必须用字段名 </div><div class="line">	* 可能会消耗更多的cpu和IO以及网络资源</div><div class="line">	* 无法使用覆盖索引</div><div class="line">	* 可以减少表结构变更对已有程序的影响</div><div class="line">* 禁止使用不含字段列表的insert语句。 </div><div class="line">	* 可以减少表结构变更对已有程序的影响</div><div class="line">* 禁止使用子查询 </div><div class="line">	* 虽然可使sql可读性好，但是缺点远远大于优点</div><div class="line">	* 子查询返回的结果集无法使用索引，结果集会被存储到一个临时表中，结果集越大性能越低</div><div class="line">	* 把子查询优化为join操作，但是并不是所有的都可以优化为join，一般情况下，只有当子查询是在in字句中，并且子查询是一个简单的sql(不包含union，group by，order by，limit)才能转换为关联查询</div><div class="line">* 避免join过多的表 </div><div class="line">	* 每join一个表会占一部分内存(join_buffer_size)</div><div class="line">	* 会产生临时表操作，影响查询效率</div><div class="line">	* mysql最多允许关联61个表，建议不超过5个</div><div class="line">* 减少同数据库的交互次数 </div><div class="line">	* 数据库更适合处理批量操作</div><div class="line">	* 合并多个相同的操作到一起，提高处理效率</div><div class="line">* 使用in代替or </div><div class="line">	* in的值不要超过500个</div><div class="line">	* in 操作可以有效利用索引</div><div class="line">* 禁止使用order by rand()进行随机排序 </div><div class="line">	* 会把表中所有符合条件的数据装载到内存中进行排序</div><div class="line">	* 会消耗大量的cpu和io及内存资源</div><div class="line">	* 推荐在程序中获取随机值</div><div class="line">* 禁止在where从句中对列进行函数转换和计算 </div><div class="line">	* 导致无法使用相关列上的索引</div><div class="line">	* where date(create_time)=&apos;20170901&apos; 写成 where create_time &gt;= &apos;20170901&apos; and create_time &lt; &apos;20170902&apos;</div><div class="line">* 在明显不会有重复值时使用union all而不是union </div><div class="line">	* union 会把所有数据放在临时表中后再进行去重操作，会多消耗内存，IO，网络资源</div><div class="line">	* union all 不会再对结果集进行去重操作</div><div class="line">* **拆分复杂的大sql为多个小sql**</div><div class="line">	* 目前mysql中一个sql只能使用一个cpu计算，不支持多cpu并行计算</div><div class="line">	* sql拆分后可以通过并行执行来提高处理效率</div><div class="line"></div><div class="line">### 6.数据库操作行为规范(主要面向手动操作数据库的行为)</div><div class="line"></div><div class="line">* 超过100万的批量写操作，要分批多次进行操作 </div><div class="line">	* 主从复制中：大批量操作可能会造成严重的主从延迟，因为当主库执行完成后，才会在从库执行</div><div class="line">	* binlog日志为row格式时会产生大量的日志</div><div class="line">	* 避免产生大量事务，产生阻塞，占满可用连接</div><div class="line">* 对大表数据结构的修改一定要谨慎 </div><div class="line">	* 可能会造成严重的锁表操作，尤其是生产环境，是不能忍受的</div><div class="line">	* 对于大表使用pt-online-schema-change修改表结构：</div><div class="line">	* 首先会建立一个与原表结构相同的新表</div><div class="line">	* 然后在新表上进行表结构的修改</div><div class="line">	* 然后把原表中的数据复制到新表中，并且增加一些触发器，以便把原表中即时新增的数据也复制到新表中</div><div class="line">	* 在行的所有数据复制完成之后，会在原表上增加一个很准的时间锁，同时把新表命名为原表，把原表删掉</div><div class="line">	* [实际上是把一个原子的DDL操作分解成多批次进行]</div><div class="line">	* [避免大表修改产生的主从延迟问题]</div><div class="line">	* [避免在对表字段进行修改时进行锁表]</div><div class="line">* 禁止为程序使用的账号赋予super权限 </div><div class="line">	* 当数据库连接数达到最大限制时，允许1个有super权限的用户连接</div><div class="line">	* super权限只能留给DBA处理问题的账号使用</div><div class="line">* 对于程序连接数据库账号，遵循权限最小原则 </div><div class="line">	* 程序使用的数据库账号只能在一个DB下使用，不准跨库</div><div class="line">	* 程序使用的账号原则上不准有drop权限</div><div class="line"></div><div class="line">## 图片规范</div><div class="line"></div><div class="line">* 命名应用小写英文、数字、_组合，便于团队其他成员理解；</div><div class="line">* 页面元素类图片均放入images文件夹,测试用图片放于images/testimg文件夹，psd源图放入images/psdimg文件夹；</div><div class="line">* 图片格式仅限于gif、png、jpg等，尽量使用png8替代gif图片。</div><div class="line">* 用png图片做图片时, 要求图片格式为png-8格式,若png-8实在影响图片质量或其中有半透明效果,请为ie-6单独定义背景，并尽量避免使用半透明的png图片。</div><div class="line">* 背景图片请尽可能使用sprite技术，减少css背景图的加载, 减小http请求。</div><div class="line">* 不要在移动端手机使用gif动画图片</div><div class="line">* 使用第三方工具压缩png24的图片，可以有非常高的压缩率</div><div class="line"></div><div class="line">PS：手机端不适用GIF图的原因是：1.可以用css3动画来代替，css3动画只出发页面复合，性能更好，2 gif动画都在手机端显示不流畅，不能使用GPU加速，会造成页面重排，严重影响页面性能。</div><div class="line"></div><div class="line">## 注释规范</div><div class="line"></div><div class="line">JAVASCRIPT、CSS文件注释需要标明作者、文件版本、创建/修改时间、重大版本修改记录、函数描述、文件版本、创建或者修改时间、功能、作者等信息。</div><div class="line"></div><div class="line">注释在代码编写过程中的重要性，写代码超过半年的就能深深的体会到。没有注释的代码都不是好代码。为了别人学习，同时为了自己以后对代码进行‘升级’，看看js/javascript代码注释规范与示例。来自：[http://www.56.com/style/-doc-/v1/tpl/js_dev_spec/spec-comment.html](http://www.56.com/style/-doc-/v1/tpl/js_dev_spec/spec-comment.html)</div><div class="line"></div><div class="line">### 文件注释</div><div class="line"></div><div class="line">* 文件注释位于文件的最前面，应包括文件的以下信息：概要说明及版本（必须）项目地址（开源组件必须）版权声明（必须）开源协议（开源组件必须）版本号（必须）修改时间（必须），以ISO格式表示（可使用Sublime Text的InsertDate插件插入）文件注释必须全部以英文字符表示，并存在于文件的开发版本与生产版本中。例如：</div></pre></td></tr></table></figure></p>
+<p>/*!</p>
+<ul>
+<li>jRaiser 2 Javascript Library</li>
+<li>waterfall - v1.0.0 (2013-03-15T14:55:51+0800)</li>
+<li><a href="http://jraiser.org/" target="_blank" rel="external">http://jraiser.org/</a> | Released under MIT license<br>*/</li>
+</ul>
+<p>/*!</p>
+<ul>
+<li>kan.56.com - v1.1 (2013-03-08T15:30:32+0800)</li>
+<li>Copyright 2005-2013 56.com<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 如果文件内包含了一些开源组件，则必须在文件注释中进行说明。例如：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/*!</p>
+<ul>
+<li>jRaiser 2 Javascript Library</li>
+<li>sizzle - v1.9.1 (2013-03-15T10:07:24+0800)</li>
+<li><a href="http://jraiser.org/" target="_blank" rel="external">http://jraiser.org/</a> | Released under MIT license<br>*</li>
+<li>Include sizzle (<a href="http://sizzlejs.com/" target="_blank" rel="external">http://sizzlejs.com/</a>)<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">### 普通注释</div><div class="line"></div><div class="line"> 普通注释是为了帮助开发者和阅读者更好地理解程序，不会出现在API文档中。其中，单行注释以“`//`”开头；多行注释以“`/*`”开头，以“`*/`”结束。普通注释的使用需遵循以下规定。</div><div class="line"></div><div class="line">* 总是在单行注释符后留一个空格。例如：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>// this is comment<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 总是在多行注释的结束符前留一个空格（使星号对齐）。例如：</div></pre></td></tr></table></figure></p>
+<p>/*</p>
+<p> */<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 不要把注释写在多行注释的开始符、结束符所在行。例如：</div></pre></td></tr></table></figure></p>
+<p>/* start</p>
+<p>end */<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>/<em><br>here is line 1<br>here is line 2
+ </em>/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 不要编写无意义的注释。例如：</div></pre></td></tr></table></figure></p>
+<p>// 初始化value变量为0<br>var value = 0;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 如果某段代码有功能未实现，或者有待完善，必须添加“TODO”标记，“TODO”前后应留一个空格。例如：</div></pre></td></tr></table></figure></p>
+<p>// TODO 未处理IE6-8的兼容性<br>function setOpacity(node, val) {<br>    node.style.opacity = val;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 文档注释[^spec]</div><div class="line"></div><div class="line"> 文档注释将会以预定格式出现在API文档中。它以“`/**`”开头，以“`*/`”结束，其间的每一行均以“`*`”开头（均与开始符的第一个“`*`”对齐），且注释内容与“`*`”间留一个空格。例如：</div></pre></td></tr></table></figure></p>
+<p>/**</p>
+<ul>
+<li>comment<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> 文档注释必须包含一个或多个注释标签。</div><div class="line"> </div><div class="line">* @module。声明模块，用法：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>模块说明</li>
+<li>@module 模块名<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">例如：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Core模块提供最基础、最核心的接口</li>
+<li>@module Core<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* @class。声明类，用法：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>类说明</li>
+<li>@class 类名</li>
+<li>@constructor<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@class必须搭配@constructor或@static使用，分别标记非静态类与静态类。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>节点集合类</li>
+<li>@class NodeList</li>
+<li>@constructor</li>
+<li>@param {ArrayLike<element>} nodes 初始化节点<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* @method。声明函数或类方法，用法：</div></pre></td></tr></table></figure>
+</element></li>
+</ul>
+<p>/**</p>
+<ul>
+<li>方法说明</li>
+<li>@method 方法名</li>
+<li>@for 所属类名</li>
+<li>@param {参数类型} 参数名 参数说明</li>
+<li>@return {返回值类型} 返回值说明<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">没有指定@for时，表示此函数为全局或模块顶层函数。当函数为静态函数时，必须添加@static；当函数有参数时，必须使用@param；当函数有返回值时，必须使用@return。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>返回当前集合中指定位置的元素</li>
+<li>@method</li>
+<li>@for NodeList</li>
+<li>@param {Number} [i=0] 位置下标。如果为负数，则从集合的最后一个元素开始倒数</li>
+<li>@return {Element} 指定元素<br>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* @param。声明函数参数，必须与@method搭配使用。</div><div class="line"></div><div class="line">* 当参数出现以下情况时，使用对应的格式：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>[参数名]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 参数有默认值：</div></pre></td></tr></table></figure></p>
+<p>[参数名=默认值]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* @property。声明类属性，用法：</div></pre></td></tr></table></figure></p>
+<p>/**</p>
+<ul>
+<li>属性说明</li>
+<li>@property {属性类型} 属性名<br>*/<br>```</li>
+</ul>
+<h1 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h1><h2 id="性能调优建议"><a href="#性能调优建议" class="headerlink" title="性能调优建议"></a>性能调优建议</h2><h3 id="1-尽可能使用Nginx提供静态资源"><a href="#1-尽可能使用Nginx提供静态资源" class="headerlink" title="1.尽可能使用Nginx提供静态资源"></a>1.尽可能使用Nginx提供静态资源</h3><p>虽然从Node.js应用中可以很容易地提供静态文件，并且我们可以使用Express静态中间件，但是这需要高性能，是操作系统一大禁忌。换句话说，这一步是可选的，但不是推荐的。</p>
+<p>最好的选择是使用Nginx、AWS或者CDN等提供静态内容，Node.js应用仅仅处理交互和网络人物。这种策略降低了Node.js进程的负载，并提升了系统效率。</p>
+<h3 id="2-尽可能使用10000以上的端口号"><a href="#2-尽可能使用10000以上的端口号" class="headerlink" title="2.尽可能使用10000以上的端口号"></a>2.尽可能使用10000以上的端口号</h3><p>从根本上降低端口冲突的可能性，并且能有效管理和分配。</p>
+<h3 id="3-使用多核处理模块Cluster"><a href="#3-使用多核处理模块Cluster" class="headerlink" title="3.使用多核处理模块Cluster"></a>3.使用多核处理模块Cluster</h3><p>Cluster是一个Nodej.js内置的模块，用于Node.js多核处理。cluster模块，可以帮助我们简化多进程并行化程序的开发难度，轻松构建一个用于负载均衡的集群。</p>
+<h3 id="4-使用Redis内存数据库作为缓存数据库"><a href="#4-使用Redis内存数据库作为缓存数据库" class="headerlink" title="4.使用Redis内存数据库作为缓存数据库"></a>4.使用Redis内存数据库作为缓存数据库</h3><p>Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作数据库，高速缓存和消息队列代理。</p>
+<p>[^nodejs]: 引用自<a href="http://javascript.ruanyifeng.com/nodejs/basic.html" target="_blank" rel="external">阮一峰</a>的博文《Node.js 概述》</p>
+<p>[^microservice]: 引用自<a href="https://segmentfault.com/a/1190000006166385" target="_blank" rel="external">Carrotzpc</a>的博文《高质量 Node.js 微服务的编写和部署》</p>
+<p>[^nodejscode]: 引用自<a href="https://blog.csdn.net/DeepLies/article/details/53385682" target="_blank" rel="external">Quiet-Night</a>的博文 &gt; 摘自 《深入浅出Node.js》</p>
+<p>[^ext]: 引用自<a href="https://www.cnblogs.com/polk6/p/5713528.html" target="_blank" rel="external">我们都是从菜鸟开始</a>的博文《ExtJS 4.2 介绍》</p>
+<p>[^extmvc]: 引用自《<a href="http://www.extjs-tutorial.com/extjs/extjs-4-mvc-architecture" target="_blank" rel="external">Basics of ExtJS 4 MVC Architecture</a>》</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/testmd/" rel="prev" title="testmd">
+                testmd <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="陈瑾毅" />
+          <p class="site-author-name" itemprop="name">陈瑾毅</p>
+           
+              <p class="site-description motion-element" itemprop="description">不要想太多，该干嘛干嘛。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-目的"><span class="nav-text">1.目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-文档范围"><span class="nav-text">2.文档范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Node-js简介"><span class="nav-text">3.Node.js简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-是什么？-nodejs"><span class="nav-text">Node.js 是什么？[^nodejs]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概述：-nodejs2"><span class="nav-text">概述：^nodejs2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式运行环境：PEPL"><span class="nav-text">交互式运行环境：PEPL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js模块和包"><span class="nav-text">Node.js模块和包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ExtJS简介-ext"><span class="nav-text">4.ExtJS简介[^ext]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用协议"><span class="nav-text">使用协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC模式-extmvc"><span class="nav-text">MVC模式[^extmvc]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-js与微服务-microservice"><span class="nav-text">Node.js与微服务[^microservice]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#微服务概述"><span class="nav-text">微服务概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-in-微服务"><span class="nav-text">Node.js in 微服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目规范"><span class="nav-text">项目规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构规范"><span class="nav-text">目录结构规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体代码："><span class="nav-text">整体代码：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ExtJS框架规范"><span class="nav-text">ExtJS框架规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web文件夹下："><span class="nav-text">web文件夹下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ExtJS资源规范"><span class="nav-text">ExtJS资源规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#资源地址"><span class="nav-text">资源地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源目录说明"><span class="nav-text">资源目录说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docs-index-html"><span class="nav-text">docs/index.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行图"><span class="nav-text">运行图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计规范"><span class="nav-text">设计规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前端部分开发规范-front"><span class="nav-text">前端部分开发规范^front</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体原则"><span class="nav-text">总体原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#html规范"><span class="nav-text">html规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-规范"><span class="nav-text">CSS 规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Javascript"><span class="nav-text">Javascript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js代码规范-nodejscode"><span class="nav-text">Node.js代码规范[^nodejscode]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#空格与格式"><span class="nav-text">空格与格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名规范"><span class="nav-text">命名规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较操作"><span class="nav-text">比较操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字面量"><span class="nav-text">字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类与模块"><span class="nav-text">类与模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数设计规范-jsfunction"><span class="nav-text">函数设计规范^jsfunction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-高内聚性"><span class="nav-text">1.高内聚性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、好的命名"><span class="nav-text">2、好的命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-长度适中"><span class="nav-text">3.长度适中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-合理的参数"><span class="nav-text">4.合理的参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户列表"><span class="nav-text">用户列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口："><span class="nav-text">接口：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求参数："><span class="nav-text">请求参数：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应："><span class="nav-text">响应：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#成功：200"><span class="nav-text">成功：200</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数不合法：409"><span class="nav-text">参数不合法：409</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他细节"><span class="nav-text">其他细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能调优建议"><span class="nav-text">性能调优建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-尽可能使用Nginx提供静态资源"><span class="nav-text">1.尽可能使用Nginx提供静态资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-尽可能使用10000以上的端口号"><span class="nav-text">2.尽可能使用10000以上的端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用多核处理模块Cluster"><span class="nav-text">3.使用多核处理模块Cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用Redis内存数据库作为缓存数据库"><span class="nav-text">4.使用Redis内存数据库作为缓存数据库</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈瑾毅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
