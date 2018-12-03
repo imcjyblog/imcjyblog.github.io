@@ -75,7 +75,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="nodejs,mysql,javascript," />
+  <meta name="keywords" content="nodejs,javascript,mysql," />
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="0、概述该bug由于比较隐秘，在一个历史的工具类库db.js中，有一个query函数，里面一个提前release了连接的操作导致所有请求都会去连接池取到同一个连接。另外一个bug就是报错后只emit，但是mysql包并未配合做release操作。 1、现象某保险公司的查勘记录仪系统，客户反馈无法登录，经过排查后，发现产生该问题的原因，主要是在后端管理系统中有人查看报表的时候，就会导致前端卡顿，需要">
-<meta name="keywords" content="nodejs,mysql,javascript">
+<meta name="keywords" content="nodejs,javascript,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="db.js中两个历史遗留bug的发现和解决过程">
 <meta property="og:url" content="http://yoursite.com/2018/04/10/db-js中两个历史遗留bug的发现和解决过程/index.html">
@@ -428,9 +428,9 @@
           
             <a href="/tags/nodejs/" rel="tag"># nodejs</a>
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
-          
             <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
           
         </div>
       
